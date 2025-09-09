@@ -1,3 +1,7 @@
+import Classes.Candidato
+
 static void main(String[] args) {
-    println "Hello world!"
+    print "Hello world!"
+
+
 }
