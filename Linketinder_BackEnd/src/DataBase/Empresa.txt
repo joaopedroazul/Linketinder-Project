@@ -5,3 +5,4 @@ CiberSafe Networks_selecao@cibersafe.net_76.543.210/0001-55_Brasil_RS_90010-140_
 InovaCode Labs_talentos@inovacode.com_23.456.789/0001-66_Brasil_PR_80010-970_Fábrica de software ágil que atua no desenvolvimento sob demanda, desde protótipos até produtos digitais completos.
 TecFlow Consultoria_rh@tecflow.com.br_11.222.333/0001-77_Brasil_BA_40015-010_Consultoria em TI que oferece implementação de ERPs, gestão de projetos e transformação digital para o setor público e privado.
 Quantum Devs_contato@quantumdevs.com.br_66.777.888/0001-99_Brasil_SC_88010-001_Startup especializada em desenvolvimento web e e-commerce, criando experiências digitais robustas e de alto desempenho.CJR_CJR@mail.com_66.777.888/0001-99_Brasil_DF_70700-000_Empresa Junior especializada em desenvolvimento web e e-commerce, criando experiências digitais robustas e de alto desempenho
+
