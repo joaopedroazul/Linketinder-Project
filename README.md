@@ -18,8 +18,28 @@ Projeto desenvolvido durante o ACZG8 na trilha Groovy para demostrar os conhecim
 
 ## Execução
 
-Para rodar o  back-end do linketinder, clone o projeto, abra um terminal na pasta ./Linketinder_BackEnd/src  copie e cole os seguinte comando no terminal
+### Programa principal
 
-    groovy Main.groovy
+Para rodar o  back-end do linketinder, clone o projeto, abra um terminal e execute os seguintes comandos
 
-e depois o programa irá rodar normalmente
+    ./run.sh
+
+Caso o executável não rode, de permissão para ele
+
+
+    chmod +x ./run.sh
+
+execute novamente
+
+### Testes
+
+Para executar os testes , rode o seguinte comando
+
+    ./test.sh
+
+Caso o executável não rode, de permissão para ele
+
+
+    chmod +x ./test.sh
+
+execute novamente
