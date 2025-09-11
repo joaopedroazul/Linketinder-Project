@@ -1,8 +1,9 @@
 import Classes.*
+import DataBase.*
 static void main(String[] args) {
 
     ArrayList<Empresa> listEmpresas = new ArrayList<>()
-    ArrayList<Empresa> listCandidatos = new ArrayList<>()
+    ArrayList<Candidato> listCandidatos = new ArrayList<>()
     ArrayList<String> listEmpresasCompetencias = new ArrayList<>()
     ArrayList<String> listCandidatosCompetencias = new ArrayList<>()
     listEmpresasCompetencias = Empresa.listarCompetencias()
@@ -28,10 +29,14 @@ static void main(String[] args) {
             opcao = scanner.nextLine().toInteger()
             if (opcao == 1){
                 Candidato c = new Candidato()
-                Candidato.viewCreateCanditado(c)
+                listCandidatos = Candidato.viewCreateCanditado(c,listCandidatos)
+                Candidato.updateLista(listCandidatos)
+                listCandidatos = Candidato.listarCandidato()
             }else{
                 Empresa e = new Empresa()
-                Empresa.viewCreateEmpresa(e)
+                listEmpresas = Empresa.viewCreateEmpresa(e,listEmpresas)
+                Empresa.updateLista(listEmpresas)
+                listEmpresas = Empresa.listarEmpresa()
             }
 
 

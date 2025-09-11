@@ -6,39 +6,40 @@ class Candidato extends Pessoa{
     Integer idade
 
 
-    void createCanditado() {
-        File file  = new File($/./DataBase/Candidatos.txt/$)
-        if(file.readLines().size() == 0 ){
-            file.write("${this.nome}_${this.email}_${this.cpf}_${this.idade.toString()}_${this.estado}_${this.cep}_${this.descricao}\n")
-        }else{
-            file.append("${this.nome}_${this.email}_${this.cpf}_${this.idade.toString()}_${this.estado}_${this.cep}_${this.descricao}\n")
-        }
-
-
-        File file2  = new File($/./DataBase/Candidatos_competencias.txt/$)
-        Integer tamanho = this.competencias.size()
-        println(tamanho)
-        this.competencias.eachWithIndex {comp, id ->
-            if (id != tamanho-1) {
-                if (file2.readLines().size() == 0){
-                    file2.write("${comp}_")
-                }else{
-                    file2.append("${comp}_")
-                }
-
+    static void updateLista(ArrayList<Candidato> lista) {
+        lista.each{ l->
+            File file  = new File($/./DataBase/Candidatos.txt/$)
+            if(file.readLines().size() == 0 ){
+                file.write("${l.nome}_${l.email}_${l.cpf}_${l.idade.toString()}_${l.estado}_${l.cep}_${l.descricao}\n")
             }else{
-                if (file2.readLines().size() == 0){
-                    file2.write("${comp}\n")
-                }else{
-                    file2.append("${comp}\n")
+                file.append("${l.nome}_${l.email}_${l.cpf}_${l.idade.toString()}_${l.estado}_${l.cep}_${l.descricao}\n")
+            }
+
+            File file2 = new File($/./DataBase/Candidatos_competencias.txt/$)
+            Integer tamanho = l.competencias.size()
+            println(tamanho)
+            l.competencias.eachWithIndex { comp, id ->
+                if (id != tamanho - 1) {
+                    if (file2.readLines().size() == 0) {
+                        file2.write("${comp}_")
+                    } else {
+                        file2.append("${comp}_")
+                    }
+
+                } else {
+                    if (file2.readLines().size() == 0) {
+                        file2.write("${comp}\n")
+                    } else {
+                        file2.append("${comp}\n")
+                    }
                 }
             }
         }
-        //file.write("${this.competencias}\n")
+               //file.write("${this.competencias}\n")
 
     }
 
-    static void viewCreateCanditado(Candidato c){
+    static ArrayList<Candidato> viewCreateCanditado(Candidato c, ArrayList<Candidato> lista ){
         Scanner scanner = new Scanner(System.in)
         println("Seja bem vindo!\n\n Iremos criar o seu cadastro no Linketinder agora\n")
         println("Para isso insira suas informações de acordo com as perguntas")
@@ -58,8 +59,23 @@ class Candidato extends Pessoa{
         println("Digite uma breve descrição sobre voce: ")
         c.descricao = scanner.nextLine()
         c.competencias = viewCreateCompetencias()
-        c.createCanditado()
+        lista.add(c)
         println("Candidato cadastrado!!!")
+        return lista
+    }
+
+    static ArrayList<Candidato> viewCreateCanditadoWithoutTerminal(Candidato c, ArrayList<Candidato> lista ){
+        ArrayList<String> l = new ArrayList<>()
+        c.nome       = "joao"
+        c.email      = "joao@mail.com"
+        c.cpf        = "123.456.789-00"
+        c.idade      = 25
+        c.estado     = "DF"
+        c.cep        = "74074-000"
+        c.descricao  = "Um novo candidato no sistema"
+        c.competencias = l
+        lista.add(c)
+        return lista
     }
 
 

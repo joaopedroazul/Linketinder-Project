@@ -5,30 +5,32 @@ class Empresa extends Pessoa{
     String email, cnpj, pais
 
 
-    void createEmpresa() {
-        File file  = new File($/./DataBase/Empresa.txt/$)
-        if(file.readLines().size() == 0 ){
-            file.write("${this.nome}_${this.email}_${this.cnpj}_${this.pais}_${this.estado}_${this.cep}_${this.descricao}\n")
-        }else{
-            file.append("${this.nome}_${this.email}_${this.cnpj}_${this.pais}_${this.estado}_${this.cep}_${this.descricao}\n")
-        }
+    static void updateLista(ArrayList<Empresa> lista) {
+        lista.each { l ->
+            File file = new File($/./DataBase/Empresa.txt/$)
+            if (file.readLines().size() == 0) {
+                file.write("${l.nome}_${l.email}_${l.cnpj}_${l.pais}_${l.estado}_${l.cep}_${l.descricao}\n")
+            } else {
+                file.append("${l.nome}_${l.email}_${l.cnpj}_${l.pais}_${l.estado}_${l.cep}_${l.descricao}\n")
+            }
 
 
-        File file2  = new File($/./DataBase/Empresas_competencias.txt/$)
-        Integer tamanho = this.competencias.size()
-        this.competencias.eachWithIndex {comp, id ->
-            if (id != tamanho-1) {
-                if (file2.readLines().size() == 0){
-                    file2.write("${comp}_")
-                }else{
-                    file2.append("${comp}_")
-                }
+            File file2 = new File($/./DataBase/Empresas_competencias.txt/$)
+            Integer tamanho = l.competencias.size()
+            l.competencias.eachWithIndex { comp, id ->
+                if (id != tamanho - 1) {
+                    if (file2.readLines().size() == 0) {
+                        file2.write("${comp}_")
+                    } else {
+                        file2.append("${comp}_")
+                    }
 
-            }else{
-                if (file2.readLines().size() == 0){
-                    file2.write("${comp}\n")
-                }else{
-                    file2.append("${comp}\n")
+                } else {
+                    if (file2.readLines().size() == 0) {
+                        file2.write("${comp}\n")
+                    } else {
+                        file2.append("${comp}\n")
+                    }
                 }
             }
         }
@@ -37,7 +39,7 @@ class Empresa extends Pessoa{
     }
 
 
-    static void viewCreateEmpresa(Empresa e){
+    static ArrayList<Empresa> viewCreateEmpresa(Empresa e, ArrayList<Empresa> lista){
         Scanner scanner = new Scanner(System.in)
         println("Seja bem vindo!\n\n Iremos criar o seu cadastro no Linketinder agora\n")
         println("Para isso insira suas informações de acordo com as perguntas")
@@ -57,8 +59,24 @@ class Empresa extends Pessoa{
         println("Digite uma breve descrição sobre voce: ")
         e.descricao = scanner.nextLine()
         e.competencias = viewCreateCompetencias()
-        e.createEmpresa()
+        lista.add(e)
         println("Empresa cadastrada!!!")
+        return lista
+    }
+
+    static ArrayList<Empresa> viewCreateEmpresaWithoutTerminal(Empresa e, ArrayList<Empresa> lista){
+        ArrayList<String> competencias = new ArrayList<>()
+        e.nome = "Quantum Devs"
+        e.email = "contato@quantumdevs.com.br"
+        e.cnpj = "66.777.888/0001-99"
+        e.pais = "Brasil"
+        e.estado = "GO"
+        e.cep = "88010-001"
+        e.descricao = "Startup especializada em desenvolvimento web e e-commerce, criando experiências digitais robustas e de alto desempenho."
+        e.competencias = competencias
+        lista.add(e)
+        return lista
+
     }
 
 
