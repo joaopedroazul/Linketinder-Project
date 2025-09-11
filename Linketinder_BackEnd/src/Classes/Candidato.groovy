@@ -18,9 +18,7 @@ class Candidato extends Pessoa{
         File file2  = new File($/./DataBase/Candidatos_competencias.txt/$)
         Integer tamanho = this.competencias.size()
         println(tamanho)
-        this.competencias.each {println(it)}
         this.competencias.eachWithIndex {comp, id ->
-            println(id)
             if (id != tamanho-1) {
                 if (file2.readLines().size() == 0){
                     file2.write("${comp}_")
@@ -64,42 +62,6 @@ class Candidato extends Pessoa{
         println("Candidato cadastrado!!!")
     }
 
-    static ArrayList<String> viewCreateCompetencias(){
-        Scanner scanner = new Scanner(System.in)
-        ArrayList<String> lista = new ArrayList<>()
-        ArrayList<String> result = new ArrayList<>()
-        lista.add("Java")
-        lista.add("Python")
-        lista.add("JavaScript")
-        lista.add("Cybersecurity")
-        lista.add("Linux")
-        lista.add("DevOps")
-        lista.add("Spring Framework")
-        lista.add("Angular")
-        lista.add("Groovy")
-        lista.add("HTML/CSS")
-
-        println("\n\nIremos selecionar Algumas Competencias para o seu perfil\n")
-        println("Para isso selecione a competencia disponivel na lista a seguir: ")
-        println("\n\n")
-        lista.eachWithIndex {item,index ->print((index+1).toString()+": "+item+"\n")}
-        Integer flag = 0
-        while(flag < 1){
-            println("\nSelecione o numero da competencia ou digite 0 para sair ")
-            int option = scanner.nextLine().toInteger()
-            if (option != 0) {
-                result.add(lista.get(option-1))
-                lista.remove(option-1)
-            }else{
-                break
-            }
-            print("\033[H\033[2J")
-            System.out.flush()
-            lista.eachWithIndex {item,index ->print((index+1).toString()+": "+item+"\n")}
-        }
-        result
-    }
-
 
 
     @Override
@@ -126,6 +88,33 @@ class Candidato extends Pessoa{
         }
         lista
     }
+
+    static ArrayList<Candidato>  listarCompetencias(){
+        File file  = new File($/./DataBase/Candidatos_competencias.txt/$)
+        List<String> lines = file.readLines()
+        ArrayList<String> lista = new ArrayList<>()
+        lines.each {line->
+            if (line.find("_")){
+                lista.add(line.split("_"))
+            }else{
+                lista.add(line)
+            }
+        }
+        lista
+    }
+
+    static Boolean  Login(String email, String cpf){
+        File file  = new File($/./DataBase/Candidatos.txt/$)
+        List<String> lines = file.readLines()
+        ArrayList<String> lista = new ArrayList<>()
+        boolean possuiCadastro = false;
+        lines.each {line->
+            if ( line.split('_')[1] == email && line.split('_')[2] == cpf )
+                possuiCadastro = true
+        }
+        possuiCadastro
+    }
+
 
 
 
