@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spock-core-2.4-M1-groovy-4.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Linketinder_BackEnd/lib/spock-core-2.4-M1-groovy-4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
