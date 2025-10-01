@@ -1,6 +1,6 @@
-import { Empresa } from "../Classes/Empresa";
-import type { Pagina } from "../router/router";
-import { router } from "../router/router";
+import { Empresa } from "../../Classes/Empresa";
+import type { Pagina } from "../../router/router";
+import { router } from "../../router/router";
 
 export class createEmpresa implements Pagina {
     
@@ -96,9 +96,10 @@ export class createEmpresa implements Pagina {
                     let Empresas = JSON.parse(localStorage.getItem('Empresas') || '[]');
                     Empresas.push(c);
                     localStorage.setItem('Empresas', JSON.stringify(Empresas));
+                    localStorage.setItem("tipoCadastro","Empresa");
                     console.log('Empresa adicionado com sucesso!');
                     operation--;
-                    router.navegação('/'); 
+                    router.navegação('/createCompetencia'); 
                 };
             }
 
@@ -115,17 +116,15 @@ export class createEmpresa implements Pagina {
     private coletarDadosEmpresa(): Empresa | null {
         console.log('Coletando dados do formulário...');
         
-        // Obter elementos - USANDO OS MESMOS IDs DO HTML
-        const nomeElement = document.getElementById('Nome') as HTMLInputElement;
-        const emailElement = document.getElementById('Email') as HTMLInputElement;
-        const paisElement = document.getElementById('Pais') as HTMLInputElement;
-        const cnpjElement = document.getElementById('Cnpj') as HTMLInputElement;
-        const estadoElement = document.getElementById('task-options') as HTMLSelectElement;
-        const cepElement = document.getElementById('Cep') as HTMLInputElement;
-        const descricaoElement = document.getElementById('descricao') as HTMLInputElement;
+        const nomeElement = (document.getElementById('Nome') as HTMLInputElement).value;
+        const emailElement = (document.getElementById('Email') as HTMLInputElement).value;
+        const paisElement = (document.getElementById('Pais') as HTMLInputElement).value;
+        const cnpjElement = (document.getElementById('Cnpj') as HTMLInputElement).value;
+        const estadoElement = (document.getElementById('task-options') as HTMLSelectElement).value;
+        const cepElement = (document.getElementById('Cep') as HTMLInputElement).value;
+        const descricaoElement = (document.getElementById('descricao') as HTMLInputElement).value;
 
-        // Debug: verificar quais elementos foram encontrados
-        console.log('Elementos encontrados:', {
+        console.log('Valores coletados:', {
             nome: nomeElement,
             email: emailElement,
             pais: paisElement,
@@ -135,107 +134,14 @@ export class createEmpresa implements Pagina {
             descricao: descricaoElement
         });
 
-        // Validar se elementos existem ANTES de acessar .value
-        if (!nomeElement) {
-            console.error('Elemento Nome não encontrado!');
-            alert('Erro: Campo Nome não encontrado.');
-            return null;
-        }
-        if (!emailElement) {
-            console.error('Elemento Email não encontrado!');
-            alert('Erro: Campo Email não encontrado.');
-            return null;
-        }
-        if (!paisElement) {
-            console.error('Elemento pais não encontrado!');
-            alert('Erro: Campo pais não encontrado.');
-            return null;
-        }
-        if (!cnpjElement) {
-            console.error('Elemento cnpj não encontrado!');
-            alert('Erro: Campo cnpj não encontrado.');
-            return null;
-        }
-        if (!estadoElement) {
-            console.error('Elemento Estado não encontrado!');
-            alert('Erro: Campo Estado não encontrado.');
-            return null;
-        }
-        if (!cepElement) {
-            console.error('Elemento Cep não encontrado!');
-            alert('Erro: Campo Cep não encontrado.');
-            return null;
-        }
-        if (!descricaoElement) {
-            console.error('Elemento descricao não encontrado!');
-            alert('Erro: Campo descricao não encontrado.');
-            return null;
-        }
-
-        // Agora sim podemos acessar .value
-        const nomeInput = nomeElement.value;
-        const emailInput = emailElement.value;
-        const paisInput = paisElement.value;
-        const cnpjInput = cnpjElement.value;
-        const estadoSelect = estadoElement.value;
-        const cepInput = cepElement.value;
-        const descricaoInput = descricaoElement.value;
-
-        console.log('Valores coletados:', {
-            nome: nomeInput,
-            email: emailInput,
-            pais: paisInput,
-            cnpj: cnpjInput,
-            estado: estadoSelect,
-            cep: cepInput,
-            descricao: descricaoInput
-        });
-
-        // Validar dados
-        if (!nomeInput.trim()) {
-            alert('Nome é obrigatório');
-            return null;
-        }
-        if (!emailInput.trim()) {
-            alert('Email é obrigatório');
-            return null;
-        }
-
-
-        if (!cnpjInput.trim() || cnpjInput.length !== 11) {
-            alert('cnpj deve conter 11 dígitos');
-            return null;
-        }
-
-        if (!estadoSelect) {
-            alert('Estado é obrigatório');
-            return null;
-        }
-
-        if (!cepInput.trim() || cepInput.length !== 8) {
-            alert('CEP deve conter 8 dígitos');
-            return null;
-        }
-
-        if (!descricaoInput.trim()) {
-            alert('Descrição é obrigatória');
-            return null;
-        }
-
-        try {
-            return new Empresa(
-                nomeInput.trim(),
-                emailInput.trim(),
-                paisInput.trim(),
-                cnpjInput,
-                estadoSelect,
-                cepInput,
-                descricaoInput.trim()
-            );
-        } catch (error) {
-            console.error('Erro ao criar Empresa:', error);
-            alert('Erro ao criar Empresa. Verifique os dados.');
-            return null;
-        }
-    }
+        return new Empresa(
+            nomeElement.trim(),
+            emailElement.trim(),
+            paisElement.trim(),
+            cnpjElement,
+            estadoElement,
+            cepElement,
+            descricaoElement.trim()
+        );
+    }  
 }
