@@ -84,22 +84,26 @@ export class createCandidato implements Pagina {
     private configurarEventosCreateCandidato(): void {
         setTimeout(() => {
             const botao = document.getElementById('createCandidato');
-            const botao2 = document.getElementById('go-page');
+            const botao2 = document.getElementById('go-page');const Nome = document.getElementById('Nome');
+
             let operation = 1;
             if(botao && operation == 1){
                 botao.onclick = () => {
                     console.log('Clicou no botao');
                     let c = this.coletarDadosCandidato();
-                    if(!c) return;
-                    
-                    console.log(c);
-                    let candidatos = JSON.parse(localStorage.getItem('candidatos') || '[]');
-                    candidatos.push(c);
-                    localStorage.setItem('candidatos', JSON.stringify(candidatos));
-                    localStorage.setItem("tipoCadastro","Candidato");
-                    console.log('Candidato adicionado com sucesso!');
-                    operation--;
-                    router.navegação('/createCompetencia'); 
+                    if(c == 1) {
+                        operation--;
+                        router.navegação('/createCandidato'); }
+                    else{
+                        console.log(c);
+                        let candidatos = JSON.parse(localStorage.getItem('candidatos') || '[]');
+                        candidatos.push(c);
+                        localStorage.setItem('candidatos', JSON.stringify(candidatos));
+                        localStorage.setItem("tipoCadastro","Candidato");
+                        console.log('Candidato adicionado com sucesso!');
+                        operation--;
+                        router.navegação('/createCompetencia'); 
+                    }
                 };
             }
 
@@ -113,7 +117,7 @@ export class createCandidato implements Pagina {
         });
     }
 
-    private coletarDadosCandidato(): Candidato | null {
+    private coletarDadosCandidato(): Candidato | number {
         console.log('Coletando dados do formulário...');
         
         const nomeElement = (document.getElementById('Nome') as HTMLInputElement).value;
@@ -123,6 +127,51 @@ export class createCandidato implements Pagina {
         const estadoElement = (document.getElementById('task-options') as HTMLSelectElement).value;
         const cepElement = (document.getElementById('Cep') as HTMLInputElement).value;
         const descricaoElement = (document.getElementById('descricao') as HTMLInputElement).value;
+        const telefoneElement = (document.getElementById('Telefone') as HTMLInputElement).value;
+        const linkedInElement = (document.getElementById('LinkenIn') as HTMLInputElement).value;
+
+        if(nomeElement){
+            const regex = /[0-9]+/gi
+            if(nomeElement.match(regex)){
+                alert("O campo nome não aceita caracteres numericos")
+                return 1
+            }
+        }
+        if(emailElement){
+            const regex = /\w+@\w+.\w+/gi
+            if(!emailElement.match(regex)){
+                alert("O campo Email é invalido. Faça o cadastro novamente")
+                return 1
+            }
+        }
+
+        if(idadeElement){
+            const regex = /[a-z]+/gi
+            if(idadeElement.match(regex)){
+                alert("O campo idade é invalido. Faça o cadastro novamente")
+                return 1
+            }
+        }
+        if(cpfElement){
+            const regex = /\d{3}.\d{3}.\d{3}-\d{2}/
+            if(!cpfElement.match(regex)){
+                alert("O campo CPF é invalido. Faça o cadastro novamente")
+                return 1
+            }
+        }
+        if(cepElement){
+            const regex = /\d{5}-\d{3}/
+            if(!cepElement.match(regex)){
+                alert("O campo cep é invalido. Faça o cadastro novamente")
+                return 1
+            }
+        }
+        if(!descricaoElement){
+            alert("O campo Descrição não pode ficar em branco. Faça o cadastro novamente")
+            return 1
+        }
+
+     
 
 
         return new Candidato(

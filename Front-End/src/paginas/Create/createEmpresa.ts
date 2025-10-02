@@ -90,16 +90,22 @@ export class createEmpresa implements Pagina {
                 botao.onclick = () => {
                     console.log('Clicou no botao');
                     let c = this.coletarDadosEmpresa();
-                    if(!c) return;
-                    
-                    console.log(c);
-                    let Empresas = JSON.parse(localStorage.getItem('Empresas') || '[]');
-                    Empresas.push(c);
-                    localStorage.setItem('Empresas', JSON.stringify(Empresas));
-                    localStorage.setItem("tipoCadastro","Empresa");
-                    console.log('Empresa adicionado com sucesso!');
-                    operation--;
-                    router.navegação('/createCompetencia'); 
+                    if(c == 1) {
+                        console.log("c: ",c)
+                        operation--;
+                        router.navegação('/createEmpresa');
+                    }
+                    else{
+                        console.log(c);
+                        let Empresas = JSON.parse(localStorage.getItem('Empresas') || '[]');
+                        Empresas.push(c);
+                        localStorage.setItem('Empresas', JSON.stringify(Empresas));
+                        localStorage.setItem("tipoCadastro","Empresa");
+                        console.log('Empresa adicionado com sucesso!');
+                        operation--;
+                        router.navegação('/createCompetencia');
+                    }
+                     
                 };
             }
 
@@ -113,7 +119,7 @@ export class createEmpresa implements Pagina {
         });
     }
 
-    private coletarDadosEmpresa(): Empresa | null {
+    private coletarDadosEmpresa(): Empresa | number {
         console.log('Coletando dados do formulário...');
         
         const nomeElement = (document.getElementById('Nome') as HTMLInputElement).value;
@@ -124,15 +130,35 @@ export class createEmpresa implements Pagina {
         const cepElement = (document.getElementById('Cep') as HTMLInputElement).value;
         const descricaoElement = (document.getElementById('descricao') as HTMLInputElement).value;
 
-        console.log('Valores coletados:', {
-            nome: nomeElement,
-            email: emailElement,
-            pais: paisElement,
-            cnpj: cnpjElement,
-            estado: estadoElement,
-            cep: cepElement,
-            descricao: descricaoElement
-        });
+        if(nomeElement){
+            const regex = /[0-9]+/gi
+            if(nomeElement.match(regex)){
+                alert("O campo nome não aceita caracteres numericos")
+                return 1
+            }
+        }
+        if(emailElement){
+            const regex = /\w+@\w+.\w+/gi
+            if(!emailElement.match(regex)){
+                alert("O campo Email é invalido. Faça o cadastro novamente")
+                return 1
+            }
+        }
+
+        if(cnpjElement){
+            const regex = /\d{2}.\d{3}.\d{3}\/\d{4}-\d{2}/
+            if(!cnpjElement.match(regex)){
+                alert("O campo CPF é invalido. Faça o cadastro novamente")
+                return 1
+            }
+        }
+        if(cepElement){
+            const regex = /\d{5}-\d{3}/
+            if(!cepElement.match(regex)){
+                alert("O campo cep é invalido. Faça o cadastro novamente")
+                return 1
+            }
+        }
 
         return new Empresa(
             nomeElement.trim(),
