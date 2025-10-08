@@ -1,0 +1,113 @@
+CREATE TABLE CANDIDATO (
+	CODIGO SERIAL PRIMARY KEY,
+	NOME VARCHAR(30)NOT NULL,
+	SOBRENOME VARCHAR(30)NOT NULL,
+    DATA_NASCIMENTO DATE NOT NULL,
+  	EMAIL VARCHAR(30) NOT NULL,
+  	CPF VARCHAR(30)NOT NULL,
+  	PAIS VARCHAR(30)NOT NULL,
+  	CEP VARCHAR(30)NOT NULL,
+  	DESCRICAO TEXT,
+  	SENHA VARCHAR NOT NULL
+)
+
+CREATE TABLE EMPRESA (
+	CODIGO SERIAL PRIMARY KEY,
+	NOME VARCHAR(30) NOT NULL,
+	EMAIL VARCHAR(30) NOT NULL,
+  	CNPJ VARCHAR(30) NOT NULL,
+  	PAIS VARCHAR(30) NOT NULL,
+  	CEP VARCHAR(30) NOT NULL,
+  	DESCRICAO TEXT,
+  	SENHA VARCHAR NOT NULL
+)
+
+CREATE TABLE VAGA (
+	CODIGO SERIAL PRIMARY KEY,
+	NOME VARCHAR(30) NOT NULL,
+	EMPRESA_ID INTEGER,
+	ESTADO_ID INTEGER,
+	CIDADE_ID INTEGER,
+	DESCRICAO TEXT
+)
+
+CREATE TABLE COMPETENCIA(
+	CODIGO SERIAL PRIMARY KEY,
+	NOME VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE COMPETENCIA_CANDIDATO(
+	CODIGO SERIAL PRIMARY KEY,
+	CANDIDATO_ID INTEGER,
+	COMPETENCIA_ID INTEGER,
+	STATUS BOOLEAN
+)
+
+CREATE TABLE COMPETENCIA_VAGA(
+	CODIGO SERIAL PRIMARY KEY,
+	VAGA_ID INTEGER,
+	COMPETENCIA_ID INTEGER,
+	STATUS BOOLEAN
+)
+
+CREATE TABLE ESTADO(
+	CODIGO SERIAL PRIMARY KEY,
+	NOME VARCHAR(40) NOT NULL
+)
+
+CREATE TABLE CIDADE(
+	CODIGO SERIAL PRIMARY KEY,
+	NOME VARCHAR(40) NOT NULL
+)
+
+
+------------- ADICIONANDO RELACIONAMENTOS
+
+ALTER TABLE VAGA ADD FOREIGN KEY (EMPRESA_ID) REFERENCES EMPRESA(CODIGO)
+ALTER TABLE VAGA ADD FOREIGN KEY (ESTADO_ID) REFERENCES EMPRESA(CODIGO)
+ALTER TABLE VAGA ADD FOREIGN KEY (CIDADE_ID) REFERENCES EMPRESA(CODIGO)
+
+ALTER TABLE COMPETENCIA_CANDIDATO ADD FOREIGN KEY (CANDIDATO_ID) REFERENCES CANDIDATO(CODIGO)
+ALTER TABLE COMPETENCIA_CANDIDATO ADD FOREIGN KEY (COMPETENCIA_ID) REFERENCES COMPETENCIA(CODIGO)
+
+ALTER TABLE COMPETENCIA_VAGA ADD FOREIGN KEY (VAGA_ID) REFERENCES VAGA(CODIGO)
+ALTER TABLE COMPETENCIA_VAGA ADD FOREIGN KEY (COMPETENCIA_ID) REFERENCES COMPETENCIA(CODIGO)
+
+
+-- CANDIDATOS 
+INSERT INTO CANDIDATO (NOME,SOBRENOME,DATA_NASCIMENTO,EMAIL,CPF,PAIS,CEP,DESCRICAO,SENHA) 
+VALUES ('Ana','Silva', DATE('1995-06-04'),'ana.silva@email.com','123.456.789-00','BRASIL','70740-000','Desenvolvedora Java com 5 anos de experiência, especializada em Spring Boot e APIs REST. Certificada AWS Cloud Practitioner','senha123')
+
+INSERT INTO CANDIDATO (NOME,SOBRENOME,DATA_NASCIMENTO,EMAIL,CPF,PAIS,CEP,DESCRICAO,SENHA)
+VALUES ('Carlos', 'Oliveira', DATE('1997-03-14'),'carlos.oliveira@tech.com','987.654.321-00','BRASIL','72340-000','Arquiteto de software com expertise em microsserviços e Docker. Mestrado em Ciência da Computação pela USP',
+'senha123')
+
+INSERT INTO CANDIDATO (NOME,SOBRENOME,DATA_NASCIMENTO,EMAIL,CPF,PAIS,CEP,DESCRICAO,SENHA)
+VALUES ('Mariana', 'Santos', DATE('1997-12-20'),'mariana.santos@dev.com','456.789.123-00','BRASIL','21360-000','Desenvolvedora Full Stack JavaScript com experiência em React, Node.js e MongoDB. Participante ativa da comunidade tech',
+'senha123')
+
+INSERT INTO CANDIDATO (NOME,SOBRENOME,DATA_NASCIMENTO,EMAIL,CPF,PAIS,CEP,DESCRICAO,SENHA)
+VALUES ('Ricardo', 'Pereira', DATE('1987-02-26'),'ricardo.pereira@it.com','789.123.456-00','BRASIL','12982-000','Especialista em cybersecurity e ethical hacking. Certificações CISSP e CEH. Experiência em pentest e segurança de redes',
+'senha123')
+
+INSERT INTO CANDIDATO (NOME,SOBRENOME,DATA_NASCIMENTO,EMAIL,CPF,PAIS,CEP,DESCRICAO,SENHA) 
+VALUES ('Juliana','Costa',DATE('1994-04-07'),'juliana.costa@sys.com','321.654.987-00','BRASIL','86423-000','Administradora de sistemas Linux e DevOps Engineer. Experiência com Kubernetes, Jenkins e Terraform. Fluente em inglês','senha123')
+
+
+
+-- EMPRESAS 
+INSERT INTO EMPRESA (NOME,EMAIL,CNPJ,PAIS,CEP,DESCRICAO,SENHA) 
+VALUES ('Nebula Tech Solutions','rh@nebulatech.com.br','12.345.678/0001-90','BRASIL','01310-900','Especializada em computação em nuvem e virtualização, oferecendo soluções escaláveis e seguras para empresas de todos os portes','senha123')
+
+INSERT INTO EMPRESA (NOME,EMAIL,CNPJ,PAIS,CEP,DESCRICAO,SENHA) 
+VALUES ('Synapse Systems','carreiras@synaps.com.br','98.765.432/0001-21','BRASIL','22011-010','Desenvolvedora de software corporativo e aplicativos móveis inovadores, focada em transformar ideias complexas em interfaces intuitivas','senha123')
+
+INSERT INTO EMPRESA (NOME,EMAIL,CNPJ,PAIS,CEP,DESCRICAO,SENHA) 
+VALUES ('DataForge Analytics','jobs@dataforge.com.br','55.789.123/0001-44','BRASIL','30150-001','Líder em Big Data e Inteligência Artificial, ajudando empresas a tomar decisões estratégicas através da análise de dados','senha123')
+
+INSERT INTO EMPRESA (NOME,EMAIL,CNPJ,PAIS,CEP,DESCRICAO,SENHA) 
+VALUES ('CiberSafe Networks','selecao@cibersafe.net','76.543.210/0001-55','BRASIL','90010-140','Empresa de cibersegurança dedicada a proteger dados e infraestruturas críticas contra ameaças digitais avançadas','senha123')
+
+INSERT INTO EMPRESA (NOME,EMAIL,CNPJ,PAIS,CEP,DESCRICAO,SENHA) 
+VALUES ('InovaCode Labs','talentos@inovacode.com','23.456.789/0001-66','BRASIL','80010-970','Fábrica de software ágil que atua no desenvolvimento sob demanda, desde protótipos até produtos digitais completos','senha123')
+

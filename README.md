@@ -9,6 +9,13 @@
 	
 Projeto desenvolvido durante o ACZG8 na trilha Groovy para demostrar os conhecimentos adquiridos ao longo da trilha.
 
+## Modelagem MER e Banco de dados
+
+    Para a criação do diagrama de Entidade Relacionamento foi gerado por meio do site dbdiagram.io e o SQL esqueleto 
+    foi gerado manualmente e testado no PostgreSQL por meio da interface PgAdmin 4.
+
+
+
 ## Pre-requisitos
 
 ### Groovy e Java
