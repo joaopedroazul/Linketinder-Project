@@ -1,7 +1,0 @@
-Ana Silva_ana.silva@email.com_123.456.789-00_28_SP_01234-567_Desenvolvedora Java com 5 anos de experiência, especializada em Spring Boot e APIs REST. Certificada AWS Cloud Practitioner.
-Carlos Oliveira_carlos.oliveira@tech.com_987.654.321-00_32_RJ_22456-789_Arquiteto de software com expertise em microsserviços e Docker. Mestrado em Ciência da Computação pela USP.
-Mariana Santos_mariana.santos@dev.com_456.789.123-00_25_MG_30123-456_Desenvolvedora Full Stack JavaScript com experiência em React, Node.js e MongoDB. Participante ativa da comunidade tech.
-Ricardo Pereira_ricardo.pereira@it.com_789.123.456-00_35_RS_90876-543_Especialista em cybersecurity e ethical hacking. Certificações CISSP e CEH. Experiência em pentest e segurança de redes.
-Juliana Costa_juliana.costa@sys.com_321.654.987-00_29_BA_40123-456_Administradora de sistemas Linux e DevOps Engineer. Experiência com Kubernetes, Jenkins e Terraform. Fluente em inglês.joao_joao@mail.com_123.456.789-00_27_DF_70740-000_SOu um jovem desenvolvedor buscando espaço no mercado de trabalho
-joao_joao@mail.com_123.456.789-00_27_DF_70740-000_Um novo candidato no sistema
-azul_azuldev@mmail.com_123.456.789-00_25_DF_70740-000_Esse e um usuario teste

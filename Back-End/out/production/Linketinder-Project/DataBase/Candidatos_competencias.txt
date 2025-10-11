@@ -1,8 +1,0 @@
-Java_Spring Boot
-Python
-JavaScript
-Cybersecurity
-Linux_DevOpsJava_Spring Framework_Groovy
-Java_Groovy_Angular
-Java_Groovy_Spring Framework
-Java_Groovy_Linux
