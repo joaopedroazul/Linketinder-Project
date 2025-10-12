@@ -14,7 +14,10 @@ application {
     mainClass.set('com.linketinder.groovy.Main')
 }
 
-
+run {
+    standardInput = System.in
+    ignoreExitValue = true
+}
 
 dependencies {
     // Groovy 4.0.14
