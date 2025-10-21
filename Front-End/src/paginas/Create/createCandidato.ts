@@ -127,9 +127,7 @@ export class createCandidato implements Pagina {
         const estadoElement = (document.getElementById('task-options') as HTMLSelectElement).value;
         const cepElement = (document.getElementById('Cep') as HTMLInputElement).value;
         const descricaoElement = (document.getElementById('descricao') as HTMLInputElement).value;
-        const telefoneElement = (document.getElementById('Telefone') as HTMLInputElement).value;
-        const linkedInElement = (document.getElementById('LinkenIn') as HTMLInputElement).value;
-
+        
         if(nomeElement){
             const regex = /[0-9]+/gi
             if(nomeElement.match(regex)){
