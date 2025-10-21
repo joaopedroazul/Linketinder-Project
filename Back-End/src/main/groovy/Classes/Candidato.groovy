@@ -40,60 +40,57 @@ class Candidato extends Pessoa{
 
     static Candidato viewCreateCanditado(){
         Scanner scanner = new Scanner(System.in)
-        Candidato c = new Candidato();
+        Candidato candidatoCriado = new Candidato();
         String[] dataValidada;
         println("Seja bem vindo!\n\n Iremos criar o seu cadastro no Linketinder agora\n")
         println("Para isso insira suas informações de acordo com as perguntas")
         println("\n\n")
         println("Digite seu nome: ")
-        c.nome = scanner.nextLine()
+        candidatoCriado.nome = scanner.nextLine()
         println("Digite seu sobrenome: ")
-        c.sobrenome = scanner.nextLine()
+        candidatoCriado.sobrenome = scanner.nextLine()
         println("Digite seu email: ")
-        c.email = scanner.nextLine()
+        candidatoCriado.email = scanner.nextLine()
         println("Digite seu cpf: ")
-        c.cpf = scanner.nextLine()
+        candidatoCriado.cpf = scanner.nextLine()
         println("Digite o Pais onde mora: ")
-        c.país = scanner.nextLine()
+        candidatoCriado.país = scanner.nextLine()
         dataValidada = validandoDataNascimento()
         if(dataValidada[1] == "0")
             return null;
         else
-            c.dataNascimento = Date.valueOf(dataValidada[0]);
+           candidatoCriado.dataNascimento = Date.valueOf(dataValidada[0]);
         println("Digite o seu CEP: ")
-        c.cep = scanner.nextLine()
+        candidatoCriado.cep = scanner.nextLine()
         println("Digite uma breve descrição sobre voce: ")
-        c.descricao = scanner.nextLine()
+        candidatoCriado.descricao = scanner.nextLine()
         println("Digite sua senha de acesso: ")
-        c.senha = scanner.nextLine()
+        candidatoCriado.senha = scanner.nextLine()
 
         println("Candidato cadastrado!!!")
-        return c;
+        return candidatoCriado;
     }
 
     static String[] validandoDataNascimento(){
         Scanner scanner = new Scanner(System.in)
-        boolean flag = false
-        String data = '';
-        while (!flag || data == "0"){
+        String dataInserida = '';
+        while (dataInserida == "0"){
             println("Digite a data de nascimento: ")
-            data = scanner.nextLine()
-            Pattern patternList = Pattern.compile("\\d{2}\\/\\d{2}\\/\\d{4}" );
-            Matcher matcher1 = patternList.matcher(data);
-            if(matcher1.matches()){
-                return [data.tokenize("/")[2]+"-"+data.tokenize("/")[1]+"-"+data.tokenize("/")[0],"1"]
+            dataInserida = scanner.nextLine()
+            Pattern regex = Pattern.compile("\\d{2}\\/\\d{2}\\/\\d{4}" );
+            Matcher matcher = regex.matcher(dataInserida);
+            if(matcher.matches()){
+                return [dataInserida.tokenize("/")[2]+"-"+dataInserida.tokenize("/")[1]+"-"+dataInserida.tokenize("/")[0],"1"]
             }else{
                 println("data de nascimento invalida, vefiricar se a data segue o padrao DD/MM/YYYY")
             }
         }
-        if(data == "0")
+        if(dataInserida == "0")
             return ["","0"]
 
         return ["",""]
 
     }
-
-//
 
     static Boolean  Login(String email, String senha){
         boolean possuiCadastro = false

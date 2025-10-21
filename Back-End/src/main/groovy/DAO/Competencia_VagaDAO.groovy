@@ -8,7 +8,7 @@ import java.sql.*
 
 class Competencia_VagaDAO {
 
-    static boolean createVaga(Competencia_Vaga cc){
+    static boolean createVaga(Competencia_Vaga competenciaVaga){
         String sql = """
             INSERT INTO Competencia_Vaga (VAGA_ID, COMPETENCIA_ID) 
             VALUES (?,?)
@@ -16,8 +16,8 @@ class Competencia_VagaDAO {
 
         try(Connection  conectado = ConexaoDB.getConnection();
             PreparedStatement preparando = conectado.prepareStatement(sql)){
-            preparando.setInt(1,cc.getVaga_id());
-            preparando.setInt(2,cc.getCompetencia_id());
+            preparando.setInt(1,competenciaVaga.getVaga_id());
+            preparando.setInt(2,competenciaVaga.getCompetencia_id());
 
             int resultado = preparando.executeUpdate();
             System.out.println("Dados inseridos com sucesso!");
@@ -33,27 +33,25 @@ class Competencia_VagaDAO {
         String sql = "SELECT c.nome as competencia FROM Competencia_Vaga as cc left join Competencia as c  on cc.competencia_id = c.codigo left join Vaga as v on v.codigo = c.vaga_id" ;
         List<Competencia> competencias = new ArrayList<>();
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement s = conn.createStatement();
-             ResultSet rs = s.executeQuery(sql)) {
-            while (rs.next()) {
+        try (Connection conectado = ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
+            while (resultadoQuery.next()) {
                 competencias.add(new Competencia(
-                        rs.getString("competencia"),
+                        resultadoQuery.getString("competencia"),
                 ));
             }
         }
         return competencias;
     }
 
-
-
     static boolean removerCompetencia_Vaga(int id_vaga, int id_competencia) throws SQLException {
 
         String sql = "DELETE FROM Competencia_Vaga WHERE competencia_id = ? and vaga_id = ?; ";
 
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement preparando = conn.prepareStatement(sql)) {
+        try (Connection conectado = ConexaoDB.getConnection();
+             PreparedStatement preparando = conectado.prepareStatement(sql)) {
             preparando.setInt(1, id_competencia);
             preparando.setInt(2, id_vaga);
             int result = preparando.executeUpdate();

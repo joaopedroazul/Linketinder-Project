@@ -32,27 +32,25 @@ class Competencia_CandidatoDAO {
         String sql = "SELECT c.nome as competencia FROM Competencia_Candidato as cc left join Competencia as c  on cc.competencia_id = c.codigo left join Candidato as can on can.codigo = c.candidato_id" ;
         List<Competencia> competencias = new ArrayList<>();
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement s = conn.createStatement();
-             ResultSet rs = s.executeQuery(sql)) {
-            while (rs.next()) {
+        try (Connection conectado= ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
+            while (resultadoQuery.next()) {
                 competencias.add(new Competencia(
-                        rs.getString("competencia"),
+                        resultadoQuery.getString("competencia"),
                 ));
             }
         }
         return competencias;
     }
 
-
-
     static boolean removerCompetencia_Candidato(int id_candidato, int id_competencia) throws SQLException {
 
         String sql = "DELETE FROM Competencia_Candidato WHERE competencia_id = ? and candidato_id = ?; ";
 
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement preparando = conn.prepareStatement(sql)) {
+        try (Connection conectado= ConexaoDB.getConnection();
+             PreparedStatement preparando = conectado.prepareStatement(sql)) {
             preparando.setInt(1, id_competencia);
             preparando.setInt(2, id_candidato);
             int result = preparando.executeUpdate();

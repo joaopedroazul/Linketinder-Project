@@ -11,17 +11,17 @@ import java.sql.Statement
 class EstadoDAO {
     static List<Estado> listarEstados() throws SQLException {
         String sql = "SELECT nome from Estado"
-        List<Estado> estados = new ArrayList<>();
+        List<Estado> estadosDisponiveis = new ArrayList<>();
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement s = conn.createStatement();
-             ResultSet rs = s.executeQuery(sql)) {
-            while (rs.next()) {
-                estados.add(new Estado(
-                        rs.getString("nome")
+        try (Connection conectado = ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
+            while (resultadoQuery.next()) {
+                estadosDisponiveis.add(new Estado(
+                        resultadoQuery.getString("nome")
                 ));
             }
         }
-        return estados;
+        return estadosDisponiveis;
     }
 }

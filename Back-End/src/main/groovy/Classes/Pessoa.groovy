@@ -20,31 +20,32 @@ class Pessoa implements IPessoa{
 
     static ArrayList<Competencia> viewCreateCompetencias(){
         Scanner scanner = new Scanner(System.in)
-        ArrayList<Competencia> lista = new ArrayList<>()
-        ArrayList<Competencia> result = new ArrayList<>()
+        ArrayList<Competencia> competenciasDisponiveis = new ArrayList<>()
+        ArrayList<Competencia> competenciasAtribuidas = new ArrayList<>()
 
-        CompetenciaDAO.listarCompetencia().each {Competencia c -> lista.add(c)}
+        CompetenciaDAO.listarCompetencia().each {Competencia novaCompetencia -> competenciasDisponiveis.add(novaCompetencia)}
 
         println("\n\nIremos selecionar Algumas Competencias para o seu perfil\n")
         println("Para isso selecione a competencia disponivel na lista a seguir: ")
         println("\n\n")
-        lista.each {item ->print((item.getId()).toString()+": "+item.getNome()+"\n")}
-        Integer flag = 0
-        while(flag < 1){
+        competenciasDisponiveis.each {competencia ->print((competencia.getId()).toString()+": "+competencia.getNome()+"\n")}
+        Integer condicaoDeSaida = 0
+        while(condicaoDeSaida < 1){
 
             println("\nSelecione o numero da competencia ou digite 0 para sair ")
             int option = scanner.nextLine().toInteger()
             if (option != 0) {
-                result.add(lista.get(option-1))
-                lista.remove(option-1)
+                competenciasAtribuidas.add(competenciasDisponiveis.get(option-1))
+                competenciasDisponiveis.remove(option-1)
             }else{
                 break
             }
             print("\033[H\033[2J")
             System.out.flush()
-            lista.eachWithIndex {item,index ->print((index+1).toString()+": "+item.getNome()+"\n")}
+            competenciasDisponiveis.eachWithIndex {competencia,indexCompetencia ->print((indexCompetencia+1).toString()+": "+competencia.getNome()+"\n")}
         }
-        result
+
+        return competenciasAtribuidas
     }
 
 }

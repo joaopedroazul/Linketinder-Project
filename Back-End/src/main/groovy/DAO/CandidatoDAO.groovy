@@ -7,7 +7,7 @@ import java.sql.*
 
 class CandidatoDAO {
 
-    static boolean createCandidato(Candidato c){
+    static boolean createCandidato(Candidato consultaCandidato){
         String sql = """
             INSERT INTO CANDIDATO (NOME,SOBRENOME,DATA_NASCIMENTO,EMAIL,CPF,PAIS,CEP,DESCRICAO,SENHA) 
             VALUES (?,?,?,?,?,?,?,?,?)
@@ -15,15 +15,15 @@ class CandidatoDAO {
 
         try(Connection  conectado = ConexaoDB.getConnection();
         PreparedStatement preparando = conectado.prepareStatement(sql)){
-            preparando.setString(1,c.getNome());
-            preparando.setString(2, c.getSobrenome());
-            preparando.setDate(3, c.getDataNascimento());
-            preparando.setString(4,c.getEmail());
-            preparando.setString(5,c.getCpf());
-            preparando.setString(6,c.getPaís());
-            preparando.setString(7,c.getCep());
-            preparando.setString(8,c.getDescricao());
-            preparando.setString(9,c.getSenha());
+            preparando.setString(1,consultaCandidato.getNome());
+            preparando.setString(2,consultaCandidato.getSobrenome());
+            preparando.setDate(3, consultaCandidato.getDataNascimento());
+            preparando.setString(4,consultaCandidato.getEmail());
+            preparando.setString(5,consultaCandidato.getCpf());
+            preparando.setString(6,consultaCandidato.getPaís());
+            preparando.setString(7,consultaCandidato.getCep());
+            preparando.setString(8,consultaCandidato.getDescricao());
+            preparando.setString(9,consultaCandidato.getSenha());
 
             int resultado = preparando.executeUpdate();
             System.out.println("Dados inseridos com sucesso!");
@@ -37,48 +37,48 @@ class CandidatoDAO {
 
     static List<Candidato> listarCandidato() throws SQLException {
         String sql = "SELECT * FROM CANDIDATO" ;
-        List<Candidato> candidatos = new ArrayList<>();
+        List<Candidato> candidatosCriados = new ArrayList<>();
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement s = conn.createStatement();
-             ResultSet rs = s.executeQuery(sql)) {
-            while (rs.next()) {
-                candidatos.add(new Candidato(
-                    rs.getString("nome"),
-                    rs.getString("sobrenome"),
-                    rs.getString("email"),
-                    rs.getString("cpf"),
-                    rs.getString("pais"),
-                    rs.getString("cep"),
-                    rs.getDate("data_nascimento"),
-                    rs.getString("descricao"),
-                    rs.getInt("codigo")
+        try (Connection conectado= ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
+            while (resultadoQuery.next()) {
+                candidatosCriados.add(new Candidato(
+                    resultadoQuery.getString("nome"),
+                    resultadoQuery.getString("sobrenome"),
+                    resultadoQuery.getString("email"),
+                    resultadoQuery.getString("cpf"),
+                    resultadoQuery.getString("pais"),
+                    resultadoQuery.getString("cep"),
+                    resultadoQuery.getDate("data_nascimento"),
+                    resultadoQuery.getString("descricao"),
+                    resultadoQuery.getInt("codigo")
 
                 ));
 
             }
         }
-        return candidatos;
+        return candidatosCriados;
     }
 
-    static Candidato listarCandidato(int index) throws SQLException {
-        String sql = "SELECT * FROM Candidato where codigo = "+Integer.toString(index)+";";
+    static Candidato listarCandidato(int id_candidato) throws SQLException {
+        String sql = "SELECT * FROM Candidato where codigo = "+Integer.toString(id_candidato)+";";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conectado= ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
-            while (rs.next()) {
+            while (resultadoQuery.next()) {
                 return new Candidato(
-                    rs.getString("nome"),
-                    rs.getString("sobrenome"),
-                    rs.getString("email"),
-                    rs.getString("cpf"),
-                    rs.getString("pais"),
-                    rs.getString("cep"),
-                    rs.getDate("data_nascimento"),
-                    rs.getString("descricao"),
-                    rs.getInt("codigo")
+                    resultadoQuery.getString("nome"),
+                    resultadoQuery.getString("sobrenome"),
+                    resultadoQuery.getString("email"),
+                    resultadoQuery.getString("cpf"),
+                    resultadoQuery.getString("pais"),
+                    resultadoQuery.getString("cep"),
+                    resultadoQuery.getDate("data_nascimento"),
+                    resultadoQuery.getString("descricao"),
+                    resultadoQuery.getInt("codigo")
 
 
                 );
@@ -86,24 +86,25 @@ class CandidatoDAO {
         }
         return null;
     }
+    
     static Candidato listarUltimoCandidato() throws SQLException {
         String sql = "SELECT * FROM Candidato order by codigo desc limit 1";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conectado= ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
-            while (rs.next()) {
+            while (resultadoQuery.next()) {
                 return new Candidato(
-                        rs.getString("nome"),
-                        rs.getString("sobrenome"),
-                        rs.getString("email"),
-                        rs.getString("cpf"),
-                        rs.getString("pais"),
-                        rs.getString("cep"),
-                        rs.getDate("data_nascimento"),
-                        rs.getString("descricao"),
-                        rs.getInt("codigo")
+                        resultadoQuery.getString("nome"),
+                        resultadoQuery.getString("sobrenome"),
+                        resultadoQuery.getString("email"),
+                        resultadoQuery.getString("cpf"),
+                        resultadoQuery.getString("pais"),
+                        resultadoQuery.getString("cep"),
+                        resultadoQuery.getDate("data_nascimento"),
+                        resultadoQuery.getString("descricao"),
+                        resultadoQuery.getInt("codigo")
 
 
                 );
@@ -115,21 +116,21 @@ class CandidatoDAO {
     static Candidato Login(String email,String senha) throws SQLException {
         String sql = "SELECT * FROM Candidato where email = '"+email+"' and senha = '"+senha+"';";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conectado= ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
-            while (rs.next()) {
+            while (resultadoQuery.next()) {
                 return new Candidato(
-                        rs.getString("nome"),
-                        rs.getString("sobrenome"),
-                        rs.getString("email"),
-                        rs.getString("cpf"),
-                        rs.getString("pais"),
-                        rs.getString("cep"),
-                        rs.getDate("data_nascimento"),
-                        rs.getString("descricao"),
-                        rs.getInt("codigo")
+                        resultadoQuery.getString("nome"),
+                        resultadoQuery.getString("sobrenome"),
+                        resultadoQuery.getString("email"),
+                        resultadoQuery.getString("cpf"),
+                        resultadoQuery.getString("pais"),
+                        resultadoQuery.getString("cep"),
+                        resultadoQuery.getDate("data_nascimento"),
+                        resultadoQuery.getString("descricao"),
+                        resultadoQuery.getInt("codigo")
 
                 );
             }
@@ -137,7 +138,7 @@ class CandidatoDAO {
         return null;
     }
 
-    static boolean updateCandidato(Candidato c,int index) throws SQLException {
+    static boolean updateCandidato(Candidato candidatoAtualizado,int id_candidato) throws SQLException {
         String sql = ""+
                 "UPDATE Candidato "+
                 "set nome = ?,"+
@@ -151,40 +152,40 @@ class CandidatoDAO {
                 "senha = ? "+
                 "where codigo = ?"+
                 "";
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement preparando = conn.prepareStatement(sql)) {
+        try (Connection conectado= ConexaoDB.getConnection();
+             PreparedStatement preparando = conectado.prepareStatement(sql)) {
 
-            preparando.setString(1,c.getNome());
-            preparando.setString(2, c.getSobrenome());
-            preparando.setDate(3, c.getDataNascimento());
-            preparando.setString(4,c.getEmail());
-            preparando.setString(5,c.getCpf());
-            preparando.setString(6,c.getPaís());
-            preparando.setString(7,c.getCep());
-            preparando.setString(8,c.getDescricao());
-            preparando.setString(9,c.getSenha());
-            preparando.setInt(10, index);
-            int result = preparando.executeUpdate();
-            if (result > 0) {
-                System.out.println("✅ Candidato id: "+ index+ " atualizado com sucesso!");
+            preparando.setString(1, candidatoAtualizado.getNome());
+            preparando.setString(2, candidatoAtualizado.getSobrenome());
+            preparando.setDate(3, candidatoAtualizado.getDataNascimento());
+            preparando.setString(4, candidatoAtualizado.getEmail());
+            preparando.setString(5, candidatoAtualizado.getCpf());
+            preparando.setString(6, candidatoAtualizado.getPaís());
+            preparando.setString(7, candidatoAtualizado.getCep());
+            preparando.setString(8, candidatoAtualizado.getDescricao());
+            preparando.setString(9, candidatoAtualizado.getSenha());
+            preparando.setInt(10, id_candidato);
+            int resultadoQuery= preparando.executeUpdate();
+            if (resultadoQuery> 0) {
+                System.out.println("✅ Candidato id: "+ id_candidato+ " atualizado com sucesso!");
             } else {
-                System.out.println("❌ Nenhuma candidato encontrado com ID " + index);
+                System.out.println("❌ Nenhuma candidato encontrado com ID " + id_candidato);
             }
-            return result > 0;
+            return resultadoQuery> 0;
 
         }
     }
 
-    static boolean removerCandidato(int id) throws SQLException {
+    static boolean removerCandidato(int id_candidato) throws SQLException {
 
         String sql = "DELETE FROM Candidato WHERE codigo = ?; ";
 
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement preparando = conn.prepareStatement(sql)) {
-            preparando.setInt(1, id);
-            int result = preparando.executeUpdate();
-            if (result > 0) {
+        try (Connection conectado= ConexaoDB.getConnection();
+             PreparedStatement preparando = conectado.prepareStatement(sql)) {
+            preparando.setInt(1, id_candidato);
+            int resultadoQuery= preparando.executeUpdate();
+            if (resultadoQuery> 0) {
                 System.out.println("Candidato removido com sucesso!");
                 return true;
             }

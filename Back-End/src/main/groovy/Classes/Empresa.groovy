@@ -26,27 +26,27 @@ class Empresa extends Pessoa{
     }
 
 
-    static Empresa viewCreateEmpresa(Empresa e){
+    static Empresa viewCreateEmpresa(Empresa empresaCriada){
         Scanner scanner = new Scanner(System.in)
         println("Seja bem vindo!\n\n Iremos criar o seu cadastro no Linketinder agora\n")
         println("Para isso insira suas informações de acordo com as perguntas")
         println("\n\n")
         println("Digite o nome da sua empresa: ")
-        e.nome = scanner.nextLine()
+        empresaCriada.nome = scanner.nextLine()
         println("Digite seu email corporativo: ")
-        e.email = scanner.nextLine()
+        empresaCriada.email = scanner.nextLine()
         println("Digite seu cnpj: ")
-        e.cnpj = scanner.nextLine()
+        empresaCriada.cnpj = scanner.nextLine()
         println("Digite seu pais: ")
-        e.pais = scanner.nextLine()
+        empresaCriada.pais = scanner.nextLine()
         println("Digite o seu CEP: ")
-        e.cep = scanner.nextLine()
+        empresaCriada.cep = scanner.nextLine()
         println("Digite uma breve descrição sobre voce: ")
-        e.descricao = scanner.nextLine()
+        empresaCriada.descricao = scanner.nextLine()
         println("Digite sua senha: ")
-        e.senha = scanner.nextLine()
+        empresaCriada.senha = scanner.nextLine()
         println("Empresa cadastrada!!!")
-        return e
+        return empresaCriada
     }
 
 

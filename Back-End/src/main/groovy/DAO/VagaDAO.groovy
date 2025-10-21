@@ -9,7 +9,7 @@ class VagaDAO {
 
 
 
-    static boolean createVaga(Vaga e){
+    static boolean createVaga(Vaga vagaCriada){
         String sql = """
             INSERT INTO VAGA (NOME,EMPRESA_ID,ESTADO_ID,CIDADE_ID,DESCRICAO) 
             VALUES (?,?,?,?,?)
@@ -17,15 +17,15 @@ class VagaDAO {
 
         try(Connection  conectado = ConexaoDB.getConnection();
             PreparedStatement preparando = conectado.prepareStatement(sql)){
-            preparando.setString(1,e.getNome());
-            preparando.setInt(2,e.getEmpresa_id());
-            preparando.setInt(3,e.getEstado_id());
-            preparando.setInt(4,e.getCidade_id());
-            preparando.setString(5,e.getDescricao());
+            preparando.setString(1,vagaCriada.getNome());
+            preparando.setInt(2,vagaCriada.getEmpresa_id());
+            preparando.setInt(3,vagaCriada.getEstado_id());
+            preparando.setInt(4,vagaCriada.getCidade_id());
+            preparando.setString(5,vagaCriada.getDescricao());
 
-            int resultado = preparando.executeUpdate();
+            int resultadoQuery = preparando.executeUpdate();
             System.out.println("Dados inseridos com sucesso!");
-            return resultado > 0;
+            return resultadoQuery > 0;
         }catch (SQLException exp){
             System.out.println(System.err);
             exp.printStackTrace();
@@ -35,45 +35,45 @@ class VagaDAO {
 
     static List<Vaga> listarVaga() throws SQLException {
         String sql = "SELECT * FROM Vaga" ;
-        List<Vaga> vagas = new ArrayList<>();
+        List<Vaga> vagasCriadas = new ArrayList<>();
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement s = conn.createStatement();
-             ResultSet rs = s.executeQuery(sql)) {
-            while (rs.next()) {
-                vagas.add(new Vaga(
-                        rs.getString("nome"),
-                        rs.getInt("empresa_id"),
-                        rs.getInt("estado_id"),
-                        rs.getInt("cidade_id"),
-                        rs.getString("descricao"),
+        try (Connection conectado = ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
+            while (resultadoQuery.next()) {
+                vagasCriadas.add(new Vaga(
+                        resultadoQuery.getString("nome"),
+                        resultadoQuery.getInt("empresa_id"),
+                        resultadoQuery.getInt("estado_id"),
+                        resultadoQuery.getInt("cidade_id"),
+                        resultadoQuery.getString("descricao"),
                 ));
             }
         }
-        return vagas;
+        return vagasCriadas;
     }
 
-    static Vaga listarVaga(int index) throws SQLException {
-        String sql = "SELECT * FROM Vaga where codigo = "+Integer.toString(index)+";";
+    static Vaga listarVaga(int id_vaga) throws SQLException {
+        String sql = "SELECT * FROM Vaga where codigo = "+Integer.toString(id_vaga)+";";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conectado = ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
-            while (rs.next()) {
+            while (resultadoQuerynext()) {
                 return new Vaga(
-                        rs.getString("nome"),
-                        rs.getInt("empresa_id"),
-                        rs.getInt("estado_id"),
-                        rs.getInt("cidade_id"),
-                        rs.getString("descricao"),
+                        resultadoQuery.getString("nome"),
+                        resultadoQuery.getInt("empresa_id"),
+                        resultadoQuery.getInt("estado_id"),
+                        resultadoQuery.getInt("cidade_id"),
+                        resultadoQuery.getString("descricao"),
                 );
             }
         }
         return null;
     }
 
-    static boolean updateVaga(Vaga c,int index) throws SQLException {
+    static boolean updateVaga(Vaga vagaAtualizada,int id_vaga) throws SQLException {
         String sql = ""+
                 "UPDATE Vaga "+
                 "set nome = ?"+
@@ -83,18 +83,18 @@ class VagaDAO {
                 "descricao = ? "+
                 "where codigo  =?"+
                 "";
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement preparando = conn.prepareStatement(sql)) {
+        try (Connection conectado = ConexaoDB.getConnection();
+             PreparedStatement preparando = conectado.prepareStatement(sql)) {
 
-            preparando.setString(1,c.getNome());
-            preparando.setInt(2, index);
-            int result = preparando.executeUpdate();
-            if (result > 0) {
-                System.out.println("✅ Vaga id: "+ index+ " atualizado com sucesso!");
+            preparando.setString(1,vagaAtualizada.getNome());
+            preparando.setInt(2, id_vaga);
+            int resultadoQuery = preparando.executeUpdate();
+            if (resultadoQuery > 0) {
+                System.out.println("✅ Vaga id: "+ id_vaga+ " atualizado com sucesso!");
             } else {
-                System.out.println("❌ Nenhuma Vaga encontrado com ID " + index);
+                System.out.println("❌ Nenhuma Vaga encontrado com ID " + id_vaga);
             }
-            return result > 0;
+            return resultadoQuery > 0;
 
         }
     }
@@ -104,11 +104,11 @@ class VagaDAO {
         String sql = "DELETE FROM Vaga WHERE codigo = ?; ";
 
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement preparando = conn.prepareStatement(sql)) {
+        try (Connection conectado = ConexaoDB.getConnection();
+             PreparedStatement preparando = conectado.prepareStatement(sql)) {
             preparando.setInt(1, id);
-            int result = preparando.executeUpdate();
-            if (result > 0) {
+            int resultadoQuery = preparando.executeUpdate();
+            if (resultadoQuery > 0) {
                 System.out.println("Vaga removido com sucesso!");
                 return true;
             }
