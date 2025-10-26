@@ -19,7 +19,6 @@ class Competencia_CandidatoDAO {
             preparando.setInt(2,id_competencia);
 
             int resultado = preparando.executeUpdate();
-            System.out.println("Dados inseridos com sucesso!");
             return resultado > 0;
         }catch (SQLException exp){
             System.out.println(System.err);

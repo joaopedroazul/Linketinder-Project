@@ -47,7 +47,6 @@ class EmpresaDAO {
             preparando.setString(7,empresaCriada.getSenha());
 
             int resultado = preparando.executeUpdate();
-            System.out.println("Dados inseridos com sucesso!");
             return resultado > 0;
         }catch (SQLException exp){
             System.out.println(System.err);

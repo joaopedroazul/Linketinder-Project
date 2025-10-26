@@ -8,7 +8,7 @@ import java.sql.*
 class CompetenciaDAO {
 
 
-    static boolean createCompetencia(Competencia e){
+    static boolean createCompetencia(Competencia competencia){
         String sql = """
             INSERT INTO Competencia (NOME) 
             VALUES (?)
@@ -16,10 +16,9 @@ class CompetenciaDAO {
 
         try(Connection  conectado = ConexaoDB.getConnection();
             PreparedStatement preparando = conectado.prepareStatement(sql)){
-            preparando.setString(1,e.getNome());
+            preparando.setString(1,competencia.getNome());
 
             int resultado = preparando.executeUpdate();
-            System.out.println("Dados inseridos com sucesso!");
             return resultado > 0;
         }catch (SQLException exp){
             System.out.println(System.err);

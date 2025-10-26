@@ -24,7 +24,6 @@ class VagaDAO {
             preparando.setString(5,vagaCriada.getDescricao());
 
             int resultadoQuery = preparando.executeUpdate();
-            System.out.println("Dados inseridos com sucesso!");
             return resultadoQuery > 0;
         }catch (SQLException exp){
             System.out.println(System.err);

@@ -20,7 +20,6 @@ class Competencia_VagaDAO {
             preparando.setInt(2,competenciaVaga.getCompetencia_id());
 
             int resultado = preparando.executeUpdate();
-            System.out.println("Dados inseridos com sucesso!");
             return resultado > 0;
         }catch (SQLException exp){
             System.out.println(System.err);

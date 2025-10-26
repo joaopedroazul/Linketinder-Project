@@ -26,7 +26,6 @@ class CandidatoDAO {
             preparando.setString(9,consultaCandidato.getSenha());
 
             int resultado = preparando.executeUpdate();
-            System.out.println("Dados inseridos com sucesso!");
             return resultado > 0;
         }catch (SQLException e){
             System.out.println(System.err);
