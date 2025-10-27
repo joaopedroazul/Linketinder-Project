@@ -42,7 +42,7 @@ class EmpresaTest extends Specification {
 
     }
 
-    void "Teste de listagem do ultimo empresa criado  "(){
+    void "Teste de listagem do ultima empresa criado  "(){
         given:
         Empresa EmpresaCriadoRecentemente = EmpresaDAO.listarEmpresa().last()
 
@@ -55,7 +55,7 @@ class EmpresaTest extends Specification {
 
     }
 
-    void "Teste de listagem de empresa especifico  "(){
+    void "Teste de listagem de empresa especifica  "(){
 
         given:
         Empresa EmpresaCriadoRecentemente = EmpresaDAO.listarEmpresa().last()

@@ -55,7 +55,8 @@ class CompetenciaDAO {
 
             while (rs.next()) {
                 return new Competencia(
-                        rs.getString("nome")
+                        rs.getString("nome"),
+                        rs.getInt("codigo")
                 );
             }
         }
