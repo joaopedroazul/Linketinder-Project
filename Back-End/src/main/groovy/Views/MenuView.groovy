@@ -120,7 +120,7 @@ class MenuView {
         Candidato novoCandidato = new Candidato()
 
         novoCandidato = CandidatoView.viewCreateCanditado();
-        CandidatoDAO.createCandidato(novoCandidato);
+        CandidatoDAO.criarCandidato(novoCandidato);
         List<Competencia>novasCompetencias = CompetenciaView.viewCreateCompetencias();
         novoCandidato = CandidatoDAO.listarUltimoCandidato()
         novasCompetencias.each { competencia -> Competencia_CandidatoDAO.createCompetencia_Candidato(competencia.id,novoCandidato.id)}

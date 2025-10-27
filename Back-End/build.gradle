@@ -20,19 +20,27 @@ run {
 }
 
 dependencies {
-    // Groovy 4.0.14
     implementation 'org.apache.groovy:groovy:4.0.14'
     implementation 'org.apache.groovy:groovy-sql:4.0.14'
     implementation 'org.apache.groovy:groovy-json:4.0.14'
-
-    // JDBC PostgreSQL
     implementation 'org.postgresql:postgresql:42.6.0'
 
     testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
-    testRuntimeOnly 'net.bytebuddy:byte-buddy:1.14.5'
 }
 
-
 test {
+
+    testLogging {
+        events "started", "passed", "skipped", "failed", "standard_out", "standard_error"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+        exceptionFormat "full"
+        showStandardStreams = true
+    }
+}
+
+tasks.named('test') {
     useJUnitPlatform()
+
 }

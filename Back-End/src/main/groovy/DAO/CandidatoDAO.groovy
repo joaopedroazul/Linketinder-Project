@@ -7,7 +7,7 @@ import java.sql.*
 
 class CandidatoDAO {
 
-    static boolean createCandidato(Candidato consultaCandidato){
+    static boolean criarCandidato(Candidato consultaCandidato){
         String sql = """
             INSERT INTO CANDIDATO (NOME,SOBRENOME,DATA_NASCIMENTO,EMAIL,CPF,PAIS,CEP,DESCRICAO,SENHA) 
             VALUES (?,?,?,?,?,?,?,?,?)
@@ -137,7 +137,7 @@ class CandidatoDAO {
         return null;
     }
 
-    static boolean updateCandidato(Candidato candidatoAtualizado,int id_candidato) throws SQLException {
+    static boolean atualizarCandidato(Candidato candidatoAtualizado,int id_candidato) throws SQLException {
         String sql = ""+
                 "UPDATE Candidato "+
                 "set nome = ?,"+
@@ -147,8 +147,7 @@ class CandidatoDAO {
                 "cpf = ?,"+
                 "pais = ? ,"+
                 "cep = ?,"+
-                "descricao = ?,"+
-                "senha = ? "+
+                "descricao = ?"+
                 "where codigo = ?"+
                 "";
         try (Connection conectado= ConexaoDB.getConnection();
@@ -162,8 +161,7 @@ class CandidatoDAO {
             preparando.setString(6, candidatoAtualizado.getPaís());
             preparando.setString(7, candidatoAtualizado.getCep());
             preparando.setString(8, candidatoAtualizado.getDescricao());
-            preparando.setString(9, candidatoAtualizado.getSenha());
-            preparando.setInt(10, id_candidato);
+            preparando.setInt(9, id_candidato);
             int resultadoQuery= preparando.executeUpdate();
             if (resultadoQuery> 0) {
                 System.out.println("✅ Candidato id: "+ id_candidato+ " atualizado com sucesso!");
@@ -191,6 +189,21 @@ class CandidatoDAO {
         }
         return  false;
 
+    }
+
+    static String listarSenhaCandidato(int id_candidato) throws SQLException {
+        String sql = "SELECT senha FROM Candidato where codigo = "+Integer.toString(id_candidato)+"";
+
+        try (Connection conectado= ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
+
+            while (resultadoQuery.next()) {
+                return resultadoQuery.getString("senha")
+
+            }
+        }
+        return "";
     }
 
 
