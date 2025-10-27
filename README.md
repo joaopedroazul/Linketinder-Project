@@ -14,7 +14,9 @@ Projeto desenvolvido durante o ACZG8 na trilha Groovy para demostrar os conhecim
     Para a criação do diagrama de Entidade Relacionamento foi gerado por meio do site dbdiagram.io e o SQL esqueleto 
     foi gerado manualmente e testado no PostgreSQL por meio da interface PgAdmin 4.
 
+## Refatoração do Clean Code
 
+	Foi implementado no Back-end modificações voltadas para a criação de nomes de variávies mais expressivos, ajuste no tamanho e funcionalidade de cada função e implementação de testes de integração
 
 ## Pre-requisitos
 
