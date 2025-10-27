@@ -46,6 +46,7 @@ class VagaDAO {
                         resultadoQuery.getInt("estado_id"),
                         resultadoQuery.getInt("cidade_id"),
                         resultadoQuery.getString("descricao"),
+                        resultadoQuery.getInt("codigo")
                 ));
             }
         }
@@ -59,13 +60,14 @@ class VagaDAO {
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
-            while (resultadoQuerynext()) {
+            while (resultadoQuery.next()) {
                 return new Vaga(
                         resultadoQuery.getString("nome"),
                         resultadoQuery.getInt("empresa_id"),
                         resultadoQuery.getInt("estado_id"),
                         resultadoQuery.getInt("cidade_id"),
                         resultadoQuery.getString("descricao"),
+                        resultadoQuery.getInt("codigo")
                 );
             }
         }
@@ -75,7 +77,7 @@ class VagaDAO {
     static boolean updateVaga(Vaga vagaAtualizada,int id_vaga) throws SQLException {
         String sql = ""+
                 "UPDATE Vaga "+
-                "set nome = ?"+
+                "set nome = ?,"+
                 "empresa_id = ? ,"+
                 "estado_id = ?,"+
                 "cidade_id = ? ,"+
@@ -86,7 +88,11 @@ class VagaDAO {
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
 
             preparando.setString(1,vagaAtualizada.getNome());
-            preparando.setInt(2, id_vaga);
+            preparando.setInt(2,vagaAtualizada.getEmpresa_id());
+            preparando.setInt(3,vagaAtualizada.getEstado_id());
+            preparando.setInt(4,vagaAtualizada.getCidade_id());
+            preparando.setString(5,vagaAtualizada.getDescricao());
+            preparando.setInt(6, id_vaga);
             int resultadoQuery = preparando.executeUpdate();
             if (resultadoQuery > 0) {
                 System.out.println("✅ Vaga id: "+ id_vaga+ " atualizado com sucesso!");
