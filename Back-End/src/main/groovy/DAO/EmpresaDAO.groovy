@@ -56,7 +56,7 @@ class EmpresaDAO {
     }
 
     static List<Empresa> listarEmpresa() throws SQLException {
-        String sql = "SELECT * FROM Empresa" ;
+        String sql = "SELECT * FROM Empresa order by codigo asc " ;
         List<Empresa> empresasCriadas = new ArrayList<>();
 
         try (Connection conectado = ConexaoDB.getConnection();
@@ -70,8 +70,9 @@ class EmpresaDAO {
                     resultadoQuery.getString("pais"),
                     resultadoQuery.getString("cep"),
                     resultadoQuery.getString("descricao"),
-                    resultadoQuery.getString("senha")
-                ));
+                    resultadoQuery.getInt("codigo")
+                    )
+                );
 
             }
         }
@@ -93,7 +94,7 @@ class EmpresaDAO {
                     resultadoQuery.getString("pais"),
                     resultadoQuery.getString("cep"),
                     resultadoQuery.getString("descricao"),
-                    resultadoQuery.getString("senha")
+                    resultadoQuery.getInt("codigo")
                 );
             }
         }
@@ -151,4 +152,20 @@ class EmpresaDAO {
         return  false;
 
     }
+
+    static String listarSenhaEmpresa(int id_empresa) throws SQLException {
+        String sql = "SELECT senha FROM Empresa where codigo = "+Integer.toString(id_empresa)+"";
+
+        try (Connection conectado= ConexaoDB.getConnection();
+             Statement estado = conectado.createStatement();
+             ResultSet resultadoQuery = estado.executeQuery(sql)) {
+
+            while (resultadoQuery.next()) {
+                return resultadoQuery.getString("senha")
+
+            }
+        }
+        return "";
+    }
+
 }
