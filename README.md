@@ -18,6 +18,12 @@ Projeto desenvolvido durante o ACZG8 na trilha Groovy para demostrar os conhecim
 
 	Foi implementado no Back-end modificações voltadas para a criação de nomes de variávies mais expressivos, ajuste no tamanho e funcionalidade de cada função e implementação de testes de integração
 
+## Implementação dos Principios SOLID
+
+    Foram utlizados os principios OCP(princípio aberto/fechado) e DIP(princípio da inversão de dependência), como o código no geral estava bem estruturado pós refatoração do clean code, esses principios foram utilizados na classes relacionadas a conexão com o banco de dados, criando uma
+    abstração na forma de conectar, por meio de uma interface, e permitindo expandir para aceitar qualquer banco de dados relacional.
+
+
 ## Pre-requisitos
 
 ### Groovy e Java
