@@ -30,8 +30,6 @@ class CandidatoTest extends Specification {
 
     }
 
-
-
     void "Teste de listagem dos candidatos "(){
         given:
         List<Candidato> CandidatosArmazenadosNoPostgreSQL = CandidatoDAO.listarCandidato()

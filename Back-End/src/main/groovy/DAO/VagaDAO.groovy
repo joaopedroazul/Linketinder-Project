@@ -2,6 +2,7 @@ package DAO
 
 import Classes.Vaga
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 
 import java.sql.*
 
@@ -15,7 +16,7 @@ class VagaDAO {
             VALUES (?,?,?,?,?)
             """;
 
-        try(Connection  conectado = ConexaoDB.getConnection();
+        try(Connection  conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
             PreparedStatement preparando = conectado.prepareStatement(sql)){
             preparando.setString(1,vagaCriada.getNome());
             preparando.setInt(2,vagaCriada.getEmpresa_id());
@@ -36,7 +37,7 @@ class VagaDAO {
         String sql = "SELECT * FROM Vaga" ;
         List<Vaga> vagasCriadas = new ArrayList<>();
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
             while (resultadoQuery.next()) {
@@ -56,7 +57,7 @@ class VagaDAO {
     static Vaga listarVaga(int id_vaga) throws SQLException {
         String sql = "SELECT * FROM Vaga where codigo = "+Integer.toString(id_vaga)+";";
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
@@ -84,7 +85,7 @@ class VagaDAO {
                 "descricao = ? "+
                 "where codigo  =?"+
                 "";
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB()); ;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
 
             preparando.setString(1,vagaAtualizada.getNome());
@@ -109,7 +110,7 @@ class VagaDAO {
         String sql = "DELETE FROM Vaga WHERE codigo = ?; ";
 
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
             preparando.setInt(1, id);
             int resultadoQuery = preparando.executeUpdate();

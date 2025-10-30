@@ -197,7 +197,6 @@ class MenuView {
         }
     }
 
-
     static Empresa verificarEmpresa(String email, String senha){
         try{
             Empresa empressCadastrado =  EmpresaDAO.Login(email,senha)

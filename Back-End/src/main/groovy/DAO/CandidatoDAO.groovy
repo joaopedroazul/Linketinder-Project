@@ -2,6 +2,7 @@ package DAO
 
 import Classes.Candidato
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 
 import java.sql.*
 
@@ -13,7 +14,7 @@ class CandidatoDAO {
             VALUES (?,?,?,?,?,?,?,?,?)
             """;
 
-        try(Connection  conectado = ConexaoDB.getConnection();
+        try(Connection  conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
         PreparedStatement preparando = conectado.prepareStatement(sql)){
             preparando.setString(1,consultaCandidato.getNome());
             preparando.setString(2,consultaCandidato.getSobrenome());
@@ -38,7 +39,7 @@ class CandidatoDAO {
         String sql = "SELECT * FROM CANDIDATO" ;
         List<Candidato> candidatosCriados = new ArrayList<>();
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
             while (resultadoQuery.next()) {
@@ -63,7 +64,7 @@ class CandidatoDAO {
     static Candidato listarCandidato(int id_candidato) throws SQLException {
         String sql = "SELECT * FROM Candidato where codigo = "+Integer.toString(id_candidato)+";";
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
@@ -89,7 +90,7 @@ class CandidatoDAO {
     static Candidato listarUltimoCandidato() throws SQLException {
         String sql = "SELECT * FROM Candidato order by codigo desc limit 1";
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
@@ -115,7 +116,7 @@ class CandidatoDAO {
     static Candidato Login(String email,String senha) throws SQLException {
         String sql = "SELECT * FROM Candidato where email = '"+email+"' and senha = '"+senha+"';";
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
@@ -150,7 +151,7 @@ class CandidatoDAO {
                 "descricao = ?"+
                 "where codigo = ?"+
                 "";
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
 
             preparando.setString(1, candidatoAtualizado.getNome());
@@ -178,7 +179,7 @@ class CandidatoDAO {
         String sql = "DELETE FROM Candidato WHERE codigo = ?; ";
 
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
             preparando.setInt(1, id_candidato);
             int resultadoQuery= preparando.executeUpdate();
@@ -194,7 +195,7 @@ class CandidatoDAO {
     static String listarSenhaCandidato(int id_candidato) throws SQLException {
         String sql = "SELECT senha FROM Candidato where codigo = "+Integer.toString(id_candidato)+"";
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 

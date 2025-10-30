@@ -2,6 +2,7 @@ package DAO
 
 import Classes.Competencia
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 
 import java.sql.*
 
@@ -14,7 +15,7 @@ class CompetenciaDAO {
             VALUES (?)
             """;
 
-        try(Connection  conectado = ConexaoDB.getConnection();
+        try(Connection  conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
             PreparedStatement preparando = conectado.prepareStatement(sql)){
             preparando.setString(1,competencia.getNome());
 
@@ -31,7 +32,7 @@ class CompetenciaDAO {
         String sql = "SELECT * FROM Competencia" ;
         List<Competencia> competencias = new ArrayList<>();
 
-        try (Connection conn = ConexaoDB.getConnection();
+        try (Connection conn = ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement s = conn.createStatement();
              ResultSet rs = s.executeQuery(sql)) {
             while (rs.next()) {
@@ -49,7 +50,7 @@ class CompetenciaDAO {
     static Competencia listarCompetencia(int index) throws SQLException {
         String sql = "SELECT * FROM Competencia where codigo = "+Integer.toString(index)+";";
 
-        try (Connection conn = ConexaoDB.getConnection();
+        try (Connection conn = ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -69,7 +70,7 @@ class CompetenciaDAO {
                 "set nome = ?"+
                 "where codigo = ?"+
                 "";
-        try (Connection conn = ConexaoDB.getConnection();
+        try (Connection conn = ConexaoDB.getConnection(PostgreSQL.getDB()); ;
              PreparedStatement preparando = conn.prepareStatement(sql)) {
 
             preparando.setString(1,c.getNome());
@@ -90,7 +91,7 @@ class CompetenciaDAO {
         String sql = "DELETE FROM Competencia WHERE codigo = ?; ";
 
 
-        try (Connection conn = ConexaoDB.getConnection();
+        try (Connection conn = ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conn.prepareStatement(sql)) {
             preparando.setInt(1, id);
             int result = preparando.executeUpdate();

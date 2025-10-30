@@ -2,6 +2,7 @@ package DAO
 
 import Classes.Cidade
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 
 import java.sql.Connection
 import java.sql.ResultSet
@@ -13,7 +14,7 @@ class CidadeDAO {
         String sql = "SELECT city.nome,city.estado_id,city.codigo from Cidade as city left join estado as est on city.estado_id = est.codigo  where upper(city.nome) like upper('%"+cidade+"%') and est.codigo = "+estado_id.toString()
         List<Cidade> cidadesCadastradas = new ArrayList<>();
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB()); ;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
             while (resultadoQuery.next()) {

@@ -2,6 +2,7 @@ package DAO
 
 import Classes.Empresa
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 
 import java.sql.*
 
@@ -10,7 +11,7 @@ class EmpresaDAO {
     static Empresa Login(String email,String senha) throws SQLException {
         String sql = "SELECT * FROM Empresa where email = '"+email+"' and senha = '"+senha+"';";
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
@@ -36,7 +37,7 @@ class EmpresaDAO {
             VALUES (?,?,?,?,?,?,?)
             """;
 
-        try(Connection  conectado = ConexaoDB.getConnection();
+        try(Connection  conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
             PreparedStatement preparando = conectado.prepareStatement(sql)){
             preparando.setString(1,empresaCriada.getNome());
             preparando.setString(2,empresaCriada.getEmail());
@@ -59,7 +60,7 @@ class EmpresaDAO {
         String sql = "SELECT * FROM Empresa order by codigo asc " ;
         List<Empresa> empresasCriadas = new ArrayList<>();
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement s = conectado.createStatement();
              ResultSet resultadoQuery = s.executeQuery(sql)) {
             while (resultadoQuery.next()) {
@@ -82,7 +83,7 @@ class EmpresaDAO {
     static Empresa listarEmpresa(int id_empresa) throws SQLException {
         String sql = "SELECT * FROM Empresa where codigo = "+Integer.toString(id_empresa)+";";
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 
@@ -113,7 +114,7 @@ class EmpresaDAO {
                 "senha = ? "+
                 "where codigo = ?"+
                 "";
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
 
             preparando.setString(1,empresaAtualizada.getNome());
@@ -140,7 +141,7 @@ class EmpresaDAO {
         String sql = "DELETE FROM Empresa WHERE codigo = ?; ";
 
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
             preparando.setInt(1, id_empresa);
             int result = preparando.executeUpdate();
@@ -156,7 +157,7 @@ class EmpresaDAO {
     static String listarSenhaEmpresa(int id_empresa) throws SQLException {
         String sql = "SELECT senha FROM Empresa where codigo = "+Integer.toString(id_empresa)+"";
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB()); ;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
 

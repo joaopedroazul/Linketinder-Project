@@ -2,6 +2,7 @@ package DAO
 
 import Classes.Competencia
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 
 import java.sql.*
 
@@ -13,7 +14,7 @@ class Competencia_CandidatoDAO {
             VALUES (?,?)
             """;
 
-        try(Connection  conectado = ConexaoDB.getConnection();
+        try(Connection  conectado = ConexaoDB.getConnection(PostgreSQL.getDB()); ;
             PreparedStatement preparando = conectado.prepareStatement(sql)){
             preparando.setInt(1,id_candidato);
             preparando.setInt(2,id_competencia);
@@ -31,7 +32,7 @@ class Competencia_CandidatoDAO {
         String sql = "SELECT c.nome as competencia FROM Competencia_Candidato as cc left join Competencia as c  on cc.competencia_id = c.codigo left join Candidato as can on can.codigo = c.candidato_id" ;
         List<Competencia> competencias = new ArrayList<>();
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
             while (resultadoQuery.next()) {
@@ -48,7 +49,7 @@ class Competencia_CandidatoDAO {
         String sql = "DELETE FROM Competencia_Candidato WHERE competencia_id = ? and candidato_id = ?; ";
 
 
-        try (Connection conectado= ConexaoDB.getConnection();
+        try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
             preparando.setInt(1, id_competencia);
             preparando.setInt(2, id_candidato);

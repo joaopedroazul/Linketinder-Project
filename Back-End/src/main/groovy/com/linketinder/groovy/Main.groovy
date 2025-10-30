@@ -10,13 +10,15 @@ import DAO.Competencia_CandidatoDAO
 import DAO.EmpresaDAO
 import DAO.VagaDAO
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 import Views.CandidatoView
 import Views.MenuView
 
 
 static void main(String[] args) {
 
-    ConexaoDB.initDB();
+    PostgreSQL servidorDeBancoDeDados = PostgreSQL.getDB()
+    ConexaoDB.setupDB(servidorDeBancoDeDados).initDB()
     MenuView.mostrarMenuInicial()
 
 }

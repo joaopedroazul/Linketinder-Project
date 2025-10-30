@@ -2,6 +2,7 @@ package DAO
 
 import Classes.Estado
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.PostgreSQL
 
 import java.sql.Connection
 import java.sql.ResultSet
@@ -13,7 +14,7 @@ class EstadoDAO {
         String sql = "SELECT nome from Estado"
         List<Estado> estadosDisponiveis = new ArrayList<>();
 
-        try (Connection conectado = ConexaoDB.getConnection();
+        try (Connection conectado = ConexaoDB.getConnection(PostgreSQL.getDB()); ;
              Statement estado = conectado.createStatement();
              ResultSet resultadoQuery = estado.executeQuery(sql)) {
             while (resultadoQuery.next()) {
