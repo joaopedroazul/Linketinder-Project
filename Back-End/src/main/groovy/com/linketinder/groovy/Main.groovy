@@ -18,7 +18,7 @@ import Views.MenuView
 static void main(String[] args) {
 
     PostgreSQL servidorDeBancoDeDados = PostgreSQL.getDB()
-    ConexaoDB.setupDB(servidorDeBancoDeDados).initDB()
+    ConexaoDB.initDB(servidorDeBancoDeDados)
     MenuView.mostrarMenuInicial()
 
 }
