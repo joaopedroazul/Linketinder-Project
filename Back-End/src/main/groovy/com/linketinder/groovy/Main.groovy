@@ -10,14 +10,18 @@ import DAO.Competencia_CandidatoDAO
 import DAO.EmpresaDAO
 import DAO.VagaDAO
 import DB_PostgreSQL.ConexaoDB
+import DB_PostgreSQL.FactoryDB
 import DB_PostgreSQL.PostgreSQL
+import DB_PostgreSQL.ProductPostgreSQL
+import Interfaces.DataBase
 import Views.CandidatoView
 import Views.MenuView
 
 
 static void main(String[] args) {
 
-    PostgreSQL servidorDeBancoDeDados = PostgreSQL.getDB()
+    FactoryDB fabrica = new ProductPostgreSQL()
+    DataBase servidorDeBancoDeDados = fabrica.iniciandoProducao()
     ConexaoDB.initDB(servidorDeBancoDeDados)
     MenuView.mostrarMenuInicial()
 

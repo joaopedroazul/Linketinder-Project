@@ -9,7 +9,7 @@ class PostgreSQL implements DataBase{
     private static Connection conectado;
     private static  PostgreSQL conexao;
 
-    private PostgreSQL(){
+    public PostgreSQL(){
         println("utilizando o PostgreSQL como Banco de dados")
     }
 
