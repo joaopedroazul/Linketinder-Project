@@ -25,7 +25,11 @@ abstração na forma de conectar, por meio de uma interface, e permitindo expand
 
 ## Implementação de Design Patterns
 
-Foram utlizados os padroes Factory Method e Singleton no módulo de integração com banco de dados, aproveitando a implementação do SOLID, o Factory method tira a responsabilidade de criar instancias da classe base e passa essa funçção para as subclasses que extende da fabrica, também foi utilizado o Singleton para garantir o uso de uma única instância do produto relacionado ao banco de dados e assim torna o programa mais leve e performático.     
+Foram utlizados os padroes Factory Method e Singleton no módulo de integração com banco de dados, aproveitando a implementação do SOLID, o Factory method tira a responsabilidade de criar instancias da classe base e passa essa função para as subclasses que extende da fabrica, também foi utilizado o Singleton para garantir o uso de uma única instância do produto relacionado ao banco de dados e assim torna o programa mais leve e performático.     
+
+## Implementação do padrão MVC
+
+Durante essa implementação, foi adicionado os pacotes de controllers, services e models, o código em si não recebeu novas atualizações, apesar algumas refatorações redirecionando trechos do código para novos módulos condizentes com a sua função.
 
 
 ## Pre-requisitos
