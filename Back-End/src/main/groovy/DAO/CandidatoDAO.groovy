@@ -1,8 +1,8 @@
 package DAO
 
-import Classes.Candidato
-import DB_PostgreSQL.ConexaoDB
-import DB_PostgreSQL.PostgreSQL
+import Models.Candidato
+import DbPostgreSQL.ConexaoDB
+import DbPostgreSQL.PostgreSQL
 
 import java.sql.*
 

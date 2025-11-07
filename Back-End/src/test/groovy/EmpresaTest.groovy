@@ -1,8 +1,6 @@
-import Classes.Empresa
+import Models.Empresa
 import DAO.EmpresaDAO
 import spock.lang.Specification
-
-import java.sql.Date
 
 class EmpresaTest extends Specification {
     Empresa empresaTeste = new Empresa()

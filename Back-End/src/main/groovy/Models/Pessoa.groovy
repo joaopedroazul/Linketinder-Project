@@ -1,6 +1,4 @@
-package Classes
-
-import DAO.CompetenciaDAO
+package Models
 
 class Pessoa {
 

@@ -1,8 +1,8 @@
 package DAO
 
-import Classes.Estado
-import DB_PostgreSQL.ConexaoDB
-import DB_PostgreSQL.PostgreSQL
+import Models.Estado
+import DbPostgreSQL.ConexaoDB
+import DbPostgreSQL.PostgreSQL
 
 import java.sql.Connection
 import java.sql.ResultSet

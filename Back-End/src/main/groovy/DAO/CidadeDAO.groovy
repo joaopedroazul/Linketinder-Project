@@ -1,8 +1,8 @@
 package DAO
 
-import Classes.Cidade
-import DB_PostgreSQL.ConexaoDB
-import DB_PostgreSQL.PostgreSQL
+import Models.Cidade
+import DbPostgreSQL.ConexaoDB
+import DbPostgreSQL.PostgreSQL
 
 import java.sql.Connection
 import java.sql.ResultSet

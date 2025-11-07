@@ -1,4 +1,4 @@
-package Classes
+package Models
 
 class Competencia_Vaga {
     int competencia_id, vaga_id;

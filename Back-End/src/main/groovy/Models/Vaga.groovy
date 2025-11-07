@@ -1,7 +1,4 @@
-package Classes
-
-import DAO.CidadeDAO
-import DAO.EstadoDAO
+package Models
 
 class Vaga {
     String nome, descricao

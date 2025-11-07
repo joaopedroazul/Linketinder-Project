@@ -1,6 +1,6 @@
 package Views
 
-import Classes.Competencia
+import Models.Competencia
 import DAO.CompetenciaDAO
 
 class CompetenciaView {

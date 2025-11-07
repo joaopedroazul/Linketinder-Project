@@ -1,9 +1,8 @@
-package DB_PostgreSQL
+package DbPostgreSQL
 
 import Interfaces.DataBase
 
 import java.sql.Connection
-import java.sql.DriverManager
 import java.sql.SQLException
 
 class ConexaoDB {

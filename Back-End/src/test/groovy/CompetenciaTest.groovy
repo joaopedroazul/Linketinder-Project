@@ -1,4 +1,4 @@
-import Classes.Competencia
+import Models.Competencia
 import DAO.CompetenciaDAO
 import spock.lang.Specification
 

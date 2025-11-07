@@ -1,4 +1,4 @@
-package DB_PostgreSQL
+package DbPostgreSQL
 
 import Interfaces.DataBase
 

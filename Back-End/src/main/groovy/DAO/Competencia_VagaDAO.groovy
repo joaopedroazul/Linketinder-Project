@@ -1,9 +1,9 @@
 package DAO
 
-import Classes.Competencia
-import Classes.Competencia_Vaga
-import DB_PostgreSQL.ConexaoDB
-import DB_PostgreSQL.PostgreSQL
+import Models.Competencia
+import Models.Competencia_Vaga
+import DbPostgreSQL.ConexaoDB
+import DbPostgreSQL.PostgreSQL
 
 import java.sql.*
 

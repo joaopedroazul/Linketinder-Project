@@ -1,4 +1,4 @@
-import Classes.Vaga
+import Models.Vaga
 import DAO.VagaDAO
 import spock.lang.Specification
 

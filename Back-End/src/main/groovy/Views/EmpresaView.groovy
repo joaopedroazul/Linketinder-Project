@@ -1,7 +1,7 @@
 package Views
 
-import Classes.Empresa
-import Classes.Empresa
+
+import Models.Empresa
 
 class EmpresaView {
 

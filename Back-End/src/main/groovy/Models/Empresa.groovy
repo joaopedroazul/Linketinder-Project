@@ -1,4 +1,4 @@
-package Classes
+package Models
 
 class Empresa extends Pessoa{
     //String nome, estado, cep, descricao;

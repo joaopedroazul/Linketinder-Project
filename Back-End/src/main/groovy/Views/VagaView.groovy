@@ -1,8 +1,8 @@
 package Views
 
-import Classes.Cidade
-import Classes.Estado
-import Classes.Vaga
+import Models.Cidade
+import Models.Estado
+import Models.Vaga
 import DAO.CidadeDAO
 import DAO.EstadoDAO
 

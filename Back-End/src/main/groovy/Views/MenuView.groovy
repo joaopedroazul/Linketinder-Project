@@ -1,16 +1,10 @@
 package Views
 
-import Classes.Candidato
-import Classes.Competencia
-import Classes.Empresa
-import Classes.Pessoa
-import Classes.Vaga
-import DAO.CandidatoDAO
-import DAO.Competencia_CandidatoDAO
-import DAO.EmpresaDAO
-import DAO.VagaDAO
+import Controllers.CandidatoController
+import Controllers.EmpresaController
+import Services.CandidatoService
+import Services.EmpresaService
 
-import java.sql.Date
 
 class MenuView {
     static  Scanner scanner = new Scanner(System.in)
@@ -43,10 +37,10 @@ class MenuView {
         int tipoDeContaCriada = getOption()
         switch (tipoDeContaCriada) {
             case 1:
-                criarCandidato()
+                CandidatoController.createCandidato()
                 break
             case 2:
-                criarEmpresa()
+                EmpresaController.criarEmpresa()
                 break
         }
     }
@@ -59,13 +53,13 @@ class MenuView {
                 String[] dadosCandidato = loginDados()
                 String email = dadosCandidato[0]
                 String senha = dadosCandidato[1]
-                loginCandidato(email,senha)
+                CandidatoController.loginCandidato(email, senha)
                 break
             case  2:
                 String[] dadosEmpresa = loginDados()
                 String email = dadosEmpresa[0]
                 String senha = dadosEmpresa[1]
-                loginEmpresa(email,senha)
+                EmpresaController.loginEmpresa(email, senha)
                 break
         }
 
@@ -116,24 +110,6 @@ class MenuView {
         }
     }
 
-    static void criarCandidato(){
-        Candidato novoCandidato = new Candidato()
-
-        novoCandidato = CandidatoView.viewCreateCanditado();
-        CandidatoDAO.criarCandidato(novoCandidato);
-        List<Competencia>novasCompetencias = CompetenciaView.viewCreateCompetencias();
-        novoCandidato = CandidatoDAO.listarUltimoCandidato()
-        novasCompetencias.each { competencia -> Competencia_CandidatoDAO.createCompetencia_Candidato(competencia.id,novoCandidato.id)}
-
-    }
-
-    static void criarEmpresa(){
-            Empresa novaEmpresa = new Empresa();
-            EmpresaView.viewCreateEmpresa(novaEmpresa);
-            EmpresaDAO.createEmpresa(novaEmpresa);
-
-    }
-
     static String[] loginDados(){
         String email, senha
         println("Digite seu email: ")
@@ -141,107 +117,6 @@ class MenuView {
         println("Digite seu senha: ")
         senha = scanner.nextLine()
         return [email,senha]
-    }
-
-    static Candidato verificarCandidato(String email, String senha){
-        try{
-            Candidato candidatoCadastrado = CandidatoDAO.Login(email,senha)
-
-            if(candidatoCadastrado.getId() > 0)
-                return candidatoCadastrado
-
-        }catch(NullPointerException exception){
-            return new Candidato(
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                     Date.valueOf("2025-10-09"),
-                    "",
-                    0
-            );
-        }
-    }
-
-    static void loginCandidato(String email, String senha ){
-        Candidato candidatoLogado =  verificarCandidato(email,senha)
-
-        if(candidatoLogado.getId() > 0){
-            int condicaoDeEntrada = 1
-            while(condicaoDeEntrada == 1) {
-                MensagensDeMenu("Menu Candidato")
-                int opcaoInterna = scanner.nextLine().toInteger()
-                switch (opcaoInterna) {
-                    case 1:
-                        println("Veja a lista de empresa buscando novos trabalhadores")
-                        VagaDAO.listarVaga().eachWithIndex { Vaga vaga, int indexVaga ->
-                            println("__________________________________________")
-                            println("\n Vaga " + (indexVaga + 1).toString())
-                            println(vaga.nome)
-                            println(vaga.descricao)
-                            println("\n\n")
-                        }
-                    case 2:
-                        break
-                    default:
-                        continue
-
-                }
-            }
-        }
-        else{
-            println("Candidato não cadastrado, crie sua conta")
-
-        }
-    }
-
-    static Empresa verificarEmpresa(String email, String senha){
-        try{
-            Empresa empressCadastrado =  EmpresaDAO.Login(email,senha)
-
-            if(empressCadastrado.getId() > 0)
-                return empressCadastrado
-
-        }catch(NullPointerException exception){
-            return new Empresa(
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    0,
-            );
-        }
-    }
-
-    static void loginEmpresa(String email, String senha){
-        Empresa empresaLogada = verificarEmpresa(email,senha)
-            if(empresaLogada.getId() > 0){
-                int condicaoDeEntrada = 1
-                while(condicaoDeEntrada >= 1 || condicaoDeEntrada <= 2) {
-                    MensagensDeMenu("Menu Empresa")
-                    int opcaoInterna = scanner.nextLine().toInteger()
-                    if (opcaoInterna == 1) {
-                        CandidatoDAO.listarCandidato().each { Candidato c ->
-                            println("________________________________________")
-                            println(" Candidato " + (c.id.toString()))
-                            println(c.descricao)
-                            println("")
-                        }
-                    } else if (opcaoInterna == 2) {
-                        Vaga novaVaga = new Vaga()
-                        novaVaga = VagaView.viewCreateVaga(empresaLogada.getId())
-                        VagaDAO.createVaga(novaVaga)
-                    }
-                    else{break}
-                    condicaoDeEntrada = opcaoInterna
-                }
-            }else{
-                println("Empresa não cadastrada, crie sua conta")
-            }
     }
 
 

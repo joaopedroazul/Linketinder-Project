@@ -1,4 +1,4 @@
-import Classes.Candidato
+import Models.Candidato
 import DAO.CandidatoDAO
 import spock.lang.Specification
 

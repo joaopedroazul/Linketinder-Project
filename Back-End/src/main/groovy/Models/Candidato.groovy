@@ -1,10 +1,7 @@
-package Classes
+package Models
 
-import DAO.CandidatoDAO
 
 import java.sql.Date
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 class Candidato extends Pessoa{
     //String nome, cep, descricao;
