@@ -31,6 +31,14 @@ Foram utlizados os padroes Factory Method e Singleton no módulo de integração
 
 Durante essa implementação, foi adicionado os pacotes de controllers, services e models, o código em si não recebeu novas atualizações, apesar algumas refatorações redirecionando trechos do código para novos módulos condizentes com a sua função.
 
+## Implementação da API RESTFul
+
+Ao longo dessa implementação foram criando alguns arquivos para migrar a aplicação para o modo API,
+sendo eles:
+- HttpServer, responsavel por criar um servido simples http, por meio de um servidor socket que fica aguardado as requisições;
+- Routes, responsavel por receber a requisição do servidor socket, encaminhar para o controller fazer as ações e encaminhar a resposta da requisição por meio de um cliente socket
+
+Além desses arquivos os controllers receberam métodos para executar as requisições
 
 ## Pre-requisitos
 
