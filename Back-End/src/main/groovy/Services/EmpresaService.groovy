@@ -10,6 +10,9 @@ import Views.EmpresaView
 import Views.MenuView
 import Views.VagaView
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 class EmpresaService {
 
     static  Scanner scanner = new Scanner(System.in)
@@ -68,6 +71,8 @@ class EmpresaService {
                 println("Empresa não cadastrada, crie sua conta")
             }
     }
+
+
 
 
 }

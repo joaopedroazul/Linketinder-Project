@@ -153,6 +153,15 @@ class CandidatoDAO {
                 "";
         try (Connection conectado= ConexaoDB.getConnection(PostgreSQL.getDB());;
              PreparedStatement preparando = conectado.prepareStatement(sql)) {
+            println(candidatoAtualizado.getNome())
+            println(candidatoAtualizado.getSobrenome())
+            println(candidatoAtualizado.getDataNascimento())
+            println(candidatoAtualizado.getEmail())
+            println(candidatoAtualizado.getCpf())
+            println(candidatoAtualizado.getPaís())
+            println(candidatoAtualizado.getCep())
+            println(candidatoAtualizado.getDescricao())
+            println(id_candidato)
 
             preparando.setString(1, candidatoAtualizado.getNome());
             preparando.setString(2, candidatoAtualizado.getSobrenome());
